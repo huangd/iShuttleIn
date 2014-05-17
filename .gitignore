@@ -1,8 +1,13 @@
 # CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control?
-#
-# Pods/
+Pods/
+Podfile.lock
 
+
+# Xcode user data
+*.xcuserstate
+xcuserdata
+*.xcbkptlist
+*.xcworkspace
+
+# OS files
+.DS_Store
