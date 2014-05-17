@@ -8,6 +8,7 @@
 
 #import "SIViewController.h"
 
+// A class extension
 @interface SIViewController ()
 
 @end
