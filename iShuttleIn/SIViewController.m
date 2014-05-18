@@ -34,6 +34,8 @@
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    // Move at least 10 meters before update current location
+    self.locationManager.distanceFilter = 10;
     [self.locationManager startUpdatingLocation];
 	// Do any additional setup after loading the view, typically from a nib.
     self.shuttleInAPIClient = [[SIShuttleInAPIClient alloc] init];
