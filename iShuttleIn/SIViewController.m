@@ -14,9 +14,10 @@
 // A class extension
 @interface SIViewController ()
 
-@property (weak, nonatomic) IBOutlet UIButton *shuttleInButton;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *shuttleTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *shuttleDistanceLabel;
 
 @property (nonatomic) CLLocationManager *locationManager;
 
@@ -37,20 +38,18 @@
     // Move at least 10 meters before update current location
     self.locationManager.distanceFilter = 10;
     [self.locationManager startUpdatingLocation];
-	// Do any additional setup after loading the view, typically from a nib.
     self.shuttleInAPIClient = [[SIShuttleInAPIClient alloc] init];
     //Newark & Cedar Stop
     self.newarkShuttleStop = [[SIGeoLocation alloc] initWithLat:37.548981521142 lng:-122.043736875057];
+    //Get ETA
+    [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(shuttleETA) userInfo:nil repeats:YES];
+
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)getDirection:(id)sender {
-    NSLog(@"getDirection button pressed");
 }
 
 - (void)updateDirectionFrom:(SIGeoLocation *)from
@@ -64,6 +63,15 @@
                                       self.timeLabel.text = [NSString stringWithFormat:@"%d minutes", direction.time/60];
                                       self.distanceLabel.text = [NSString stringWithFormat:@"%g miles", direction.distance];
                                   }];
+}
+
+- (void)shuttleETA {
+    [self.shuttleInAPIClient shuttleETA:1583
+                                     to:self.newarkShuttleStop
+                               callback:^(NSError *error, SIDirection *direction){
+                                   self.shuttleTimeLabel.text = [NSString stringWithFormat:@"%d minutes", direction.time/60];
+                                   self.shuttleDistanceLabel.text = [NSString stringWithFormat:@"%g miles", direction.distance];
+                               }];
 }
 
 #pragma mark

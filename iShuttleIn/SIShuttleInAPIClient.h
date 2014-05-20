@@ -16,4 +16,9 @@
 - (AFHTTPRequestOperation *)directionFrom:(SIGeoLocation *)from
                             to:(SIGeoLocation *)to
                       callback:(void (^)(NSError *error, SIDirection *direction))callback;
+
+- (AFHTTPRequestOperation *)shuttleETA:(int)vehicleId
+                                    to:(SIGeoLocation *)to
+                              callback:(void (^)(NSError *error, SIDirection *direction))callback;
+
 @end
