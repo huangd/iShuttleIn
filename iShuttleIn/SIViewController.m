@@ -10,9 +10,11 @@
 #import "SIGeoLocation.h"
 #import "SIDirection.h"
 #import "SIShuttleInAPIClient.h"
+#import "SIRouteTableViewController.h"
+#import <RNFrostedSidebar.h>
 
 // A class extension
-@interface SIViewController ()
+@interface SIViewController () <RNFrostedSidebarDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
@@ -27,6 +29,9 @@
 @end
 
 @implementation SIViewController
+
+#pragma mark
+#pragma mark ViewController
 
 - (void)viewDidLoad
 {
@@ -43,7 +48,18 @@
     self.newarkShuttleStop = [[SIGeoLocation alloc] initWithLat:37.548981521142 lng:-122.043736875057];
     //Get ETA
     [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(shuttleETA) userInfo:nil repeats:YES];
-
+    
+}
+- (IBAction)tapBurger:(UIBarButtonItem *)sender {
+    NSArray *images = @[
+                        [UIImage imageNamed:@"gear"],
+                        [UIImage imageNamed:@"globe"],
+                        [UIImage imageNamed:@"profile"],
+                        ];
+    
+    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
+    callout.delegate = self;
+    [callout show];
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,6 +68,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark
+#pragma mark iShuttle
 - (void)updateDirectionFrom:(SIGeoLocation *)from
                          to:(SIGeoLocation *)to {
     if (to == nil) {
@@ -75,7 +93,16 @@
 }
 
 #pragma mark
-#pragma mark CLLocationManagerDelegate Methods
+#pragma RNFrostedSidebarDelegate
+-(void)sidebar:(RNFrostedSidebar *)sidebar didTapItemAtIndex:(NSUInteger)index {
+    if (index == 1) {
+        UITableViewController *routeTableViewController = [[SIRouteTableViewController alloc] init];
+        [self.navigationController pushViewController:routeTableViewController animated:YES];
+    }
+}
+
+#pragma mark
+#pragma mark CLLocationManagerDelegate
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     NSLog(@"Error: %@", error);
     NSLog(@"Failed to get current location");
