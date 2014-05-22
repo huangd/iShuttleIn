@@ -10,7 +10,6 @@
 #import <RNFrostedSidebar.h>
 
 #import "SIHomeViewController.h"
-#import "SIViewController.h"
 #import "SIGeoLocation.h"
 #import "SIDirection.h"
 #import "SIShuttleInAPIClient.h"
