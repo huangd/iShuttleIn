@@ -27,8 +27,6 @@
 		6FC1818F192706B800BA624F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6FC1818D192706B800BA624F /* InfoPlist.strings */; };
 		6FC18191192706B800BA624F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC18190192706B800BA624F /* main.m */; };
 		6FC18195192706B800BA624F /* SIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC18194192706B800BA624F /* SIAppDelegate.m */; };
-		6FC18198192706B800BA624F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FC18196192706B800BA624F /* Main.storyboard */; };
-		6FC1819B192706B800BA624F /* SIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC1819A192706B800BA624F /* SIViewController.m */; };
 		6FC1819D192706B800BA624F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FC1819C192706B800BA624F /* Images.xcassets */; };
 		6FC181A4192706B800BA624F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC181A3192706B800BA624F /* XCTest.framework */; };
 		6FC181A5192706B800BA624F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC18184192706B800BA624F /* Foundation.framework */; };
@@ -80,9 +78,6 @@
 		6FC18192192706B800BA624F /* iShuttleIn-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iShuttleIn-Prefix.pch"; sourceTree = "<group>"; };
 		6FC18193192706B800BA624F /* SIAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIAppDelegate.h; sourceTree = "<group>"; };
 		6FC18194192706B800BA624F /* SIAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIAppDelegate.m; sourceTree = "<group>"; };
-		6FC18197192706B800BA624F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6FC18199192706B800BA624F /* SIViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIViewController.h; sourceTree = "<group>"; };
-		6FC1819A192706B800BA624F /* SIViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIViewController.m; sourceTree = "<group>"; };
 		6FC1819C192706B800BA624F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6FC181A2192706B800BA624F /* iShuttleInTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iShuttleInTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FC181A3192706B800BA624F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -167,9 +162,6 @@
 				6F1BF0BE192C63550076E00D /* burger@2x.png */,
 				6FC18193192706B800BA624F /* SIAppDelegate.h */,
 				6FC18194192706B800BA624F /* SIAppDelegate.m */,
-				6FC18196192706B800BA624F /* Main.storyboard */,
-				6FC18199192706B800BA624F /* SIViewController.h */,
-				6FC1819A192706B800BA624F /* SIViewController.m */,
 				6FC1819C192706B800BA624F /* Images.xcassets */,
 				6FC1818B192706B800BA624F /* Supporting Files */,
 				6F82503B1927DAB5008DD772 /* SIShuttleInAPIClient.h */,
@@ -310,7 +302,6 @@
 				6F1BF0C9192C65310076E00D /* globe.png in Resources */,
 				6F1BF0CA192C65310076E00D /* globe@2x.png in Resources */,
 				6FC1818F192706B800BA624F /* InfoPlist.strings in Resources */,
-				6FC18198192706B800BA624F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,7 +354,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FC18195192706B800BA624F /* SIAppDelegate.m in Sources */,
-				6FC1819B192706B800BA624F /* SIViewController.m in Sources */,
 				6F8250401927E52D008DD772 /* SIDirection.m in Sources */,
 				6F82503D1927DAB5008DD772 /* SIShuttleInAPIClient.m in Sources */,
 				6F8250431927EAA1008DD772 /* SIGeoLocation.m in Sources */,
@@ -398,14 +388,6 @@
 				6FC1818E192706B800BA624F /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		6FC18196192706B800BA624F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6FC18197192706B800BA624F /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		6FC181AC192706B800BA624F /* InfoPlist.strings */ = {
