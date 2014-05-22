@@ -35,6 +35,8 @@
 		6FC181A6192706B800BA624F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC18188192706B800BA624F /* UIKit.framework */; };
 		6FC181AE192706B800BA624F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6FC181AC192706B800BA624F /* InfoPlist.strings */; };
 		6FC181B0192706B800BA624F /* iShuttleInTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC181AF192706B800BA624F /* iShuttleInTests.m */; };
+		6FD6D189192DC50600D8E37C /* SIHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD6D187192DC50600D8E37C /* SIHomeViewController.m */; };
+		6FD6D18A192DC50600D8E37C /* SIHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FD6D188192DC50600D8E37C /* SIHomeViewController.xib */; };
 		BA46E74CC60A4F0B85530184 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B563839B38D54F91A13FC750 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +89,9 @@
 		6FC181AB192706B800BA624F /* iShuttleInTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iShuttleInTests-Info.plist"; sourceTree = "<group>"; };
 		6FC181AD192706B800BA624F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6FC181AF192706B800BA624F /* iShuttleInTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iShuttleInTests.m; sourceTree = "<group>"; };
+		6FD6D186192DC50600D8E37C /* SIHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIHomeViewController.h; sourceTree = "<group>"; };
+		6FD6D187192DC50600D8E37C /* SIHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIHomeViewController.m; sourceTree = "<group>"; };
+		6FD6D188192DC50600D8E37C /* SIHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SIHomeViewController.xib; sourceTree = "<group>"; };
 		B563839B38D54F91A13FC750 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -176,6 +181,9 @@
 				6F1BF0CD192C6A080076E00D /* SIRouteTableViewController.h */,
 				6F1BF0CE192C6A080076E00D /* SIRouteTableViewController.m */,
 				6F1BF0CF192C6A080076E00D /* SIRouteTableViewController.xib */,
+				6FD6D186192DC50600D8E37C /* SIHomeViewController.h */,
+				6FD6D187192DC50600D8E37C /* SIHomeViewController.m */,
+				6FD6D188192DC50600D8E37C /* SIHomeViewController.xib */,
 			);
 			path = iShuttleIn;
 			sourceTree = "<group>";
@@ -293,6 +301,7 @@
 				6F1BF0BF192C63550076E00D /* burger.png in Resources */,
 				6F1BF0C8192C65310076E00D /* gear@2x.png in Resources */,
 				6F1BF0C0192C63550076E00D /* burger@2x.png in Resources */,
+				6FD6D18A192DC50600D8E37C /* SIHomeViewController.xib in Resources */,
 				6F1BF0CB192C65310076E00D /* profile.png in Resources */,
 				6F1BF0C7192C65310076E00D /* gear.png in Resources */,
 				6F1BF0D1192C6A080076E00D /* SIRouteTableViewController.xib in Resources */,
@@ -358,6 +367,7 @@
 				6F8250401927E52D008DD772 /* SIDirection.m in Sources */,
 				6F82503D1927DAB5008DD772 /* SIShuttleInAPIClient.m in Sources */,
 				6F8250431927EAA1008DD772 /* SIGeoLocation.m in Sources */,
+				6FD6D189192DC50600D8E37C /* SIHomeViewController.m in Sources */,
 				6F1BF0D0192C6A080076E00D /* SIRouteTableViewController.m in Sources */,
 				6FC18191192706B800BA624F /* main.m in Sources */,
 			);

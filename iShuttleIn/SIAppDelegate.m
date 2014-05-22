@@ -7,12 +7,16 @@
 //
 
 #import "SIAppDelegate.h"
+#import "SIHomeViewController.h"
 
 @implementation SIAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    SIHomeViewController *hvc = [[SIHomeViewController alloc] init];
+    self.window.rootViewController = hvc;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 							
