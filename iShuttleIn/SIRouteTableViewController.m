@@ -7,7 +7,7 @@
 //
 
 #import "SIRouteTableViewController.h"
-#import <RNFrostedSidebar.h>
+#import "RNFrostedSidebar.h"
 
 @interface SIRouteTableViewController () <RNFrostedSidebarDelegate>
 
@@ -15,21 +15,38 @@
 
 @implementation SIRouteTableViewController
 
-- (void)viewDidLoad
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        UIBarButtonItem *burger = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"burger.png"]
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self action:@selector(tapBurger:)];
+        self.navigationItem.leftBarButtonItem = burger;
+    }
+    return self;
+}
+
+
+- (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)tapBurger:(UIBarButtonItem *)sender {
+    NSArray *images = @[
+                        [UIImage imageNamed:@"gear"],
+                        [UIImage imageNamed:@"globe"],
+                        [UIImage imageNamed:@"profile"],
+                        ];
+    
+    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
+    callout.delegate = self;
+    [callout show];
 }
 
 #pragma mark - Table view data source

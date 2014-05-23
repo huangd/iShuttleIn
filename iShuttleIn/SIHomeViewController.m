@@ -7,7 +7,7 @@
 //
 
 #import <CoreLocation/CoreLocation.h>
-#import <RNFrostedSidebar.h>
+#import "RNFrostedSidebar.h"
 
 #import "SIHomeViewController.h"
 #import "SIGeoLocation.h"
@@ -36,7 +36,10 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        UIBarButtonItem *burger = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"burger.png"]
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self action:@selector(tapBurger:)];
+        self.navigationItem.leftBarButtonItem = burger;
     }
     return self;
 }
@@ -107,8 +110,12 @@
 #pragma RNFrostedSidebarDelegate
 -(void)sidebar:(RNFrostedSidebar *)sidebar didTapItemAtIndex:(NSUInteger)index {
     if (index == 1) {
-        UITableViewController *routeTableViewController = [[SIRouteTableViewController alloc] init];
-        [self.navigationController pushViewController:routeTableViewController animated:YES];
+        [sidebar dismissAnimated:YES completion:^(BOOL finished) {
+            if (finished) {
+                SIRouteTableViewController *routeTableViewController = [[SIRouteTableViewController alloc] init];
+                [self.navigationController pushViewController:routeTableViewController animated:YES];
+            }
+        }];
     }
 }
 
