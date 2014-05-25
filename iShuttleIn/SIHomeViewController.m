@@ -10,6 +10,7 @@
 #import <TTCounterLabel.h>
 #import "RNFrostedSidebar.h"
 #import "SICircle.h"
+#import "SIStatusLine.h"
 
 #import "SIHomeViewController.h"
 #import "SIGeoLocation.h"
@@ -25,11 +26,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *shuttleTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *shuttleDistanceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *routeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stopLabel;
 @property (weak, nonatomic) IBOutlet TTCounterLabel *counterLabel;
 
 @property (nonatomic) SICircle *circle;
+@property (nonatomic) SIStatusLine *statusLine;
 
 @property (nonatomic) CLLocationManager *locationManager;
 
@@ -68,21 +69,13 @@
     //Get ETA
     [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(shuttleETA) userInfo:nil repeats:YES];
     
-    [self customiseAppearance];
-    self.counterLabel.countDirection = kCountDirectionDown;
-    self.counterLabel.displayMode = kDisplayModeSeconds;
-    [self.counterLabel setStartValue:60000*20];
-    [self.counterLabel start];
+    [self setupCounterLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    float radius = 80;
-    self.circle = [[SICircle alloc] initWithPosition:CGPointMake(160-radius, 100)
-                                                          radius:radius
-                                                  internalRadius:radius-5
-                                               circleStrokeColor:[UIColor lightGrayColor]];
-    [self.view addSubview:self.circle];
+    [self setupCircle];
+    [self setupStatusLine];
 }
 
 - (IBAction)tapBurger:(UIBarButtonItem *)sender {
@@ -111,7 +104,7 @@
 - (void)shuttleETA {
     self.shuttleStop = [[SIGeoLocation alloc] initWithLat:[self.stopTableViewController.stop objectForKey:@"Latitude"]
                                                       lng:[self.stopTableViewController.stop objectForKey:@"Longitude"]];
-    self.routeLabel.text = [self.routeTableViewController.route objectForKey:@"ShortName"];
+    self.navigationItem.title = [self.routeTableViewController.route objectForKey:@"ShortName"];
     self.stopLabel.text = [self.stopTableViewController.stop objectForKey:@"Name"];
     
     [self.shuttleInAPIClient shuttleETA:self.routeTableViewController.vehicleId
@@ -168,14 +161,14 @@
                                                                     lng:@([[locations lastObject] coordinate].longitude)];
     self.shuttleStop = [[SIGeoLocation alloc] initWithLat:[self.stopTableViewController.stop objectForKey:@"Latitude"]
                                                       lng:[self.stopTableViewController.stop objectForKey:@"Longitude"]];
-    self.routeLabel.text = [self.routeTableViewController.route objectForKey:@"ShortName"];
+    self.navigationItem.title = [self.routeTableViewController.route objectForKey:@"ShortName"];
     self.stopLabel.text = [self.stopTableViewController.stop objectForKey:@"Name"];
     [self updateDirectionFrom:currentLocation to:self.shuttleStop];
 }
 
 #pragma mark
 #pragma mark TTCounterLabel
-- (void)customiseAppearance {
+- (void)setupCounterLabel {
     CGFloat numberFont = 40;
     CGFloat letterFont = 15;
     [self.counterLabel setBoldFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:numberFont]];
@@ -186,5 +179,39 @@
     self.counterLabel.textColor = [UIColor darkGrayColor];
     // After making any changes we need to call update appearance
     [self.counterLabel updateApperance];
+    
+    self.counterLabel.countDirection = kCountDirectionDown;
+    self.counterLabel.displayMode = kDisplayModeSeconds;
+    [self.counterLabel setStartValue:60000*10];
+    [self.counterLabel start];
+}
+
+#pragma mark
+#pragma mark SICircle
+- (void)setupCircle {
+    float radius = 80;
+    CGRect counterLabelFrame = self.counterLabel.frame;
+    CGPoint counterLabelCenterPoint = CGPointMake(counterLabelFrame.size.width/2+counterLabelFrame.origin.x,
+                                                  counterLabelFrame.size.height/2+counterLabelFrame.origin.y);
+    self.circle = [[SICircle alloc] initWithPosition:CGPointMake(counterLabelCenterPoint.x-radius,
+                                                                 counterLabelCenterPoint.y-radius+5)
+                                              radius:radius
+                                      internalRadius:radius-5
+                                   circleStrokeColor:[UIColor lightGrayColor]];
+    [self.view addSubview:self.circle];
+
+}
+
+#pragma mark
+#pragma mark SIStatusLine
+- (void)setupStatusLine {
+    CGFloat lineLength = 280;
+    CGFloat lineWidth = 15;
+    self.statusLine = [[SIStatusLine alloc] initWithPosition:CGPointMake(self.view.frame.size.width/2 - lineLength/2,
+                                                                         self.view.frame.size.height - 100)
+                                                   lineWidth:lineWidth
+                                                  lineLength:lineLength
+                                             lineStrokeColor:[UIColor lightGrayColor]];
+    [self.view addSubview:self.statusLine];
 }
 @end
