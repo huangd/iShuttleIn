@@ -10,7 +10,7 @@
 
 @implementation SIGeoLocation
 
-- (instancetype)initWithLat:(double)lat lng:(double)lng {
+- (instancetype)initWithLat:(NSNumber *)lat lng:(NSNumber *)lng {
     self = [super init];
     if (self) {
         self.lat = lat;

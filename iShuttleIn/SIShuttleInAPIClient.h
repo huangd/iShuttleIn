@@ -17,8 +17,13 @@
                             to:(SIGeoLocation *)to
                       callback:(void (^)(NSError *error, SIDirection *direction))callback;
 
-- (AFHTTPRequestOperation *)shuttleETA:(int)vehicleId
+- (AFHTTPRequestOperation *)shuttleETA:(NSNumber *)vehicleId
                                     to:(SIGeoLocation *)to
                               callback:(void (^)(NSError *error, SIDirection *direction))callback;
+
+- (AFHTTPRequestOperation *)routesCallback:(void (^)(NSError *error, NSArray *routes))callback;
+
+- (AFHTTPRequestOperation *)stopsForRoute:(NSNumber *)routeId
+                                 callback:(void (^)(NSError *error, NSArray *stops))callback;
 
 @end

@@ -10,10 +10,10 @@
 
 @interface SIGeoLocation : NSObject
 
-@property (nonatomic) double lng;
-@property (nonatomic) double lat;
+@property (nonatomic) NSNumber *lng;
+@property (nonatomic) NSNumber *lat;
 
-- (instancetype)initWithLat:(double)lat
-                        lng:(double)lng;
+- (instancetype)initWithLat:(NSNumber *)lat
+                        lng:(NSNumber *)lng;
 
 @end

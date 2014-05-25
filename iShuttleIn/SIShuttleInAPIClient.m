@@ -34,26 +34,26 @@
 - (AFHTTPRequestOperation *)directionFrom:(SIGeoLocation *)from
                                        to:(SIGeoLocation *)to
                                  callback:(void (^)(NSError *, SIDirection *))callback {
+    if (from.lat == nil || from.lng == nil || to.lat == nil || to.lng == nil) {
+        callback([NSError errorWithDomain:@"from, to is nil" code:0 userInfo:nil], nil);
+        return nil;
+    }
+    
     NSDictionary *parameters = @{
                                  @"from": @{
-                                         @"lat": [NSNumber numberWithDouble:from.lat],
-                                         @"lng": [NSNumber numberWithDouble:from.lng]
+                                         @"lat": from.lat,
+                                         @"lng": from.lng
                                          },
                                  @"to": @{
-                                         @"lat": [NSNumber numberWithDouble:to.lat],
-                                         @"lng": [NSNumber numberWithDouble:to.lng]
+                                         @"lat": to.lat,
+                                         @"lng": to.lng
                                          }
                                  };
     return [self.httpRequestOperationManager GET:[self.baseURLString stringByAppendingString:@"/directions"]
                                       parameters:parameters
                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                             NSLog(@"Request: %@", operation.description);
-                                             if (callback) {
-                                                 SIDirection *direction = [[SIDirection alloc] init];
-                                                 direction.time = [(NSNumber *)[(NSArray *)[(NSDictionary *)responseObject objectForKey:@"time"] objectAtIndex:1] intValue];
-                                                 direction.distance = [(NSString *)[(NSArray *)[(NSDictionary *)responseObject objectForKey:@"distance"] objectAtIndex:1] doubleValue];
-                                                 callback(nil, direction);
-                                             }
+                                             NSLog(@"directionFromTo operation: %@", operation);
+                                             [self successDirectionHandlerResponse:responseObject callback:callback];
                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                              if (callback) {
                                                  callback(error, nil);
@@ -61,31 +61,70 @@
                                          }];
 }
 
-- (AFHTTPRequestOperation *)shuttleETA:(int)vehicleId to:(SIGeoLocation *)to
+- (AFHTTPRequestOperation *)shuttleETA:(NSNumber *)vehicleId to:(SIGeoLocation *)to
                               callback:(void (^)(NSError *, SIDirection *))callback {
+    if (to.lat == nil || to.lng == nil) {
+        callback([NSError errorWithDomain:@"to is nil" code:0 userInfo:nil], nil);
+        return nil;
+    }
     NSDictionary *parameters = @{
                                  @"to": @{
-                                         @"lat": [NSNumber numberWithDouble:to.lat],
-                                         @"lng": [NSNumber numberWithDouble:to.lng]
+                                         @"lat": to.lat,
+                                         @"lng": to.lng
                                          }
                                  };
-    return [self.httpRequestOperationManager GET:[self.baseURLString stringByAppendingString:[NSString stringWithFormat:@"/eta/%d", vehicleId]]
+    return [self.httpRequestOperationManager GET:[self.baseURLString stringByAppendingString:[NSString stringWithFormat:@"/eta/%@", vehicleId]]
                                       parameters:parameters
                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                             NSLog(@"Request: %@", operation.description);
-                                             if (callback) {
-                                                 SIDirection *direction = [[SIDirection alloc] init];
-                                                 direction.time = [(NSNumber *)[(NSArray *)[(NSDictionary *)responseObject objectForKey:@"time"] objectAtIndex:1] intValue];
-                                                 direction.distance = [(NSString *)[(NSArray *)[(NSDictionary *)responseObject objectForKey:@"distance"] objectAtIndex:1] doubleValue];
-                                                 callback(nil, direction);
-                                             }
+                                             NSLog(@"shuttleETA operation: %@", operation);
+                                             [self successDirectionHandlerResponse:responseObject callback:callback];
                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                             NSLog(@"Request: %@", operation.description);
                                              if (callback) {
                                                  callback(error, nil);
                                              }
                                          }];
 }
 
+- (AFHTTPRequestOperation *)routesCallback:(void (^)(NSError *, NSArray *))callback {
+    return [self.httpRequestOperationManager GET:[self.baseURLString stringByAppendingString:@"/region/0/routes"]
+                                      parameters:nil
+                                         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                             NSLog(@"routesCallBack operation: %@", operation);
+                                             if (callback) {
+                                                 callback(nil, responseObject);
+                                             }
+                                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                             if (callback) {
+                                                 callback(error, nil);
+                                             }
+                                         }];
+}
+
+- (AFHTTPRequestOperation *)stopsForRoute:(NSNumber *)routeId
+                                 callback:(void (^)(NSError *, NSArray *))callback {
+    return [self.httpRequestOperationManager GET:[self.baseURLString stringByAppendingString:[NSString stringWithFormat:@"/route/%@/direction/0/stops", routeId]]
+                                      parameters:nil
+                                         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                             NSLog(@"stopsForRoute opertaion: %@", operation);
+                                             if (callback) {
+                                                 callback(nil, responseObject);
+                                             }
+                                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                             NSLog(@"%@", operation);
+                                             if (callback) {
+                                                 callback(error, nil);
+                                             }
+                                         }];
+}
+
+- (void)successDirectionHandlerResponse:(id)response
+                               callback:(void (^)(NSError*, SIDirection *)) callback {
+    if (callback) {
+        SIDirection *direction = [[SIDirection alloc] init];
+        direction.time = [(NSNumber *)[(NSArray *)[(NSDictionary *)response objectForKey:@"time"] objectAtIndex:1] intValue];
+        direction.distance = [(NSString *)[(NSArray *)[(NSDictionary *)response objectForKey:@"distance"] objectAtIndex:1] doubleValue];
+        callback(nil, direction);
+    }
+}
 
 @end
