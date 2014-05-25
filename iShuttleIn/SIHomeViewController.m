@@ -7,7 +7,9 @@
 //
 
 #import <CoreLocation/CoreLocation.h>
+#import <TTCounterLabel.h>
 #import "RNFrostedSidebar.h"
+#import "SICircle.h"
 
 #import "SIHomeViewController.h"
 #import "SIGeoLocation.h"
@@ -17,7 +19,7 @@
 #import "SIStopTableViewController.h"
 
 
-@interface SIHomeViewController () <CLLocationManagerDelegate, RNFrostedSidebarDelegate>
+@interface SIHomeViewController () <CLLocationManagerDelegate, RNFrostedSidebarDelegate, TTCounterLabelDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
@@ -25,10 +27,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *shuttleDistanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *routeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stopLabel;
+@property (weak, nonatomic) IBOutlet TTCounterLabel *counterLabel;
+
+@property (nonatomic) SICircle *circle;
 
 @property (nonatomic) CLLocationManager *locationManager;
 
-@property (nonatomic) SIGeoLocation *newarkShuttleStop;
 @property (nonatomic) SIGeoLocation *shuttleStop;
 @property (nonatomic) SIShuttleInAPIClient *shuttleInAPIClient;
 
@@ -58,20 +62,31 @@
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    // Move at least 10 meters before update current location
-//    self.locationManager.distanceFilter = 10;
+    //    self.locationManager.distanceFilter = 10;
     [self.locationManager startUpdatingLocation];
     self.shuttleInAPIClient = [[SIShuttleInAPIClient alloc] init];
-    //Newark & Cedar Stop
-    self.newarkShuttleStop = [[SIGeoLocation alloc] initWithLat:[NSNumber numberWithDouble:37.548981521142] lng:[NSNumber numberWithDouble:-122.043736875057]];
     //Get ETA
     [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(shuttleETA) userInfo:nil repeats:YES];
     
+    [self customiseAppearance];
+    self.counterLabel.countDirection = kCountDirectionDown;
+    self.counterLabel.displayMode = kDisplayModeSeconds;
+    [self.counterLabel setStartValue:60000*20];
+    [self.counterLabel start];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    float radius = 80;
+    self.circle = [[SICircle alloc] initWithPosition:CGPointMake(160-radius, 100)
+                                                          radius:radius
+                                                  internalRadius:radius-5
+                                               circleStrokeColor:[UIColor lightGrayColor]];
+    [self.view addSubview:self.circle];
 }
 
 - (IBAction)tapBurger:(UIBarButtonItem *)sender {
     NSArray *images = @[
-                        [UIImage imageNamed:@"gear"],
                         [UIImage imageNamed:@"globe"],
                         [UIImage imageNamed:@"profile"],
                         ];
@@ -98,7 +113,7 @@
                                                       lng:[self.stopTableViewController.stop objectForKey:@"Longitude"]];
     self.routeLabel.text = [self.routeTableViewController.route objectForKey:@"ShortName"];
     self.stopLabel.text = [self.stopTableViewController.stop objectForKey:@"Name"];
-
+    
     [self.shuttleInAPIClient shuttleETA:self.routeTableViewController.vehicleId
                                      to:self.shuttleStop
                                callback:^(NSError *error, SIDirection *direction) {
@@ -117,7 +132,7 @@
                     if (self.routeTableViewController == nil) {
                         self.routeTableViewController = [[SIRouteTableViewController alloc] init];
                     }
-                    [self.navigationController pushViewController:self.routeTableViewController animated:NO];
+                    [self.navigationController pushViewController:self.routeTableViewController animated:YES];
                 }
             }];
             break;
@@ -129,7 +144,7 @@
                         self.stopTableViewController = [[SIStopTableViewController alloc] init];
                     }
                     self.stopTableViewController.routeId = self.routeTableViewController.routeId;
-                    [self.navigationController pushViewController:self.stopTableViewController animated:NO];
+                    [self.navigationController pushViewController:self.stopTableViewController animated:YES];
                 }
             }];
             break;
@@ -156,5 +171,20 @@
     self.routeLabel.text = [self.routeTableViewController.route objectForKey:@"ShortName"];
     self.stopLabel.text = [self.stopTableViewController.stop objectForKey:@"Name"];
     [self updateDirectionFrom:currentLocation to:self.shuttleStop];
+}
+
+#pragma mark
+#pragma mark TTCounterLabel
+- (void)customiseAppearance {
+    CGFloat numberFont = 40;
+    CGFloat letterFont = 15;
+    [self.counterLabel setBoldFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:numberFont]];
+    [self.counterLabel setRegularFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:numberFont]];
+    // The font property of the label is used as the font for H,M,S and MS
+    [self.counterLabel setFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:letterFont]];
+    // Default label properties
+    self.counterLabel.textColor = [UIColor darkGrayColor];
+    // After making any changes we need to call update appearance
+    [self.counterLabel updateApperance];
 }
 @end

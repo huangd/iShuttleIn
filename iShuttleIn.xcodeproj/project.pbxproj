@@ -22,6 +22,7 @@
 		6F1BF0D1192C6A080076E00D /* SIRouteTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BF0CF192C6A080076E00D /* SIRouteTableViewController.xib */; };
 		6F1FAC94193161AA00B64A5C /* SIStopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1FAC92193161AA00B64A5C /* SIStopTableViewController.m */; };
 		6F1FAC95193161AA00B64A5C /* SIStopTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1FAC93193161AA00B64A5C /* SIStopTableViewController.xib */; };
+		6F5BC88A193259D400B90395 /* SICircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5BC889193259D400B90395 /* SICircle.m */; };
 		6F82503D1927DAB5008DD772 /* SIShuttleInAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F82503C1927DAB5008DD772 /* SIShuttleInAPIClient.m */; };
 		6F8250401927E52D008DD772 /* SIDirection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F82503F1927E52D008DD772 /* SIDirection.m */; };
 		6F8250431927EAA1008DD772 /* SIGeoLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8250421927EAA1008DD772 /* SIGeoLocation.m */; };
@@ -73,6 +74,8 @@
 		6F1FAC91193161AA00B64A5C /* SIStopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIStopTableViewController.h; sourceTree = "<group>"; };
 		6F1FAC92193161AA00B64A5C /* SIStopTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIStopTableViewController.m; sourceTree = "<group>"; };
 		6F1FAC93193161AA00B64A5C /* SIStopTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SIStopTableViewController.xib; sourceTree = "<group>"; };
+		6F5BC888193259D400B90395 /* SICircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SICircle.h; sourceTree = "<group>"; };
+		6F5BC889193259D400B90395 /* SICircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SICircle.m; sourceTree = "<group>"; };
 		6F82503B1927DAB5008DD772 /* SIShuttleInAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIShuttleInAPIClient.h; sourceTree = "<group>"; };
 		6F82503C1927DAB5008DD772 /* SIShuttleInAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIShuttleInAPIClient.m; sourceTree = "<group>"; };
 		6F82503E1927E52D008DD772 /* SIDirection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIDirection.h; sourceTree = "<group>"; };
@@ -197,6 +200,8 @@
 				6F1FAC91193161AA00B64A5C /* SIStopTableViewController.h */,
 				6F1FAC92193161AA00B64A5C /* SIStopTableViewController.m */,
 				6F1FAC93193161AA00B64A5C /* SIStopTableViewController.xib */,
+				6F5BC888193259D400B90395 /* SICircle.h */,
+				6F5BC889193259D400B90395 /* SICircle.m */,
 			);
 			path = iShuttleIn;
 			sourceTree = "<group>";
@@ -378,6 +383,7 @@
 				6F1FAC94193161AA00B64A5C /* SIStopTableViewController.m in Sources */,
 				6FC18195192706B800BA624F /* SIAppDelegate.m in Sources */,
 				6F8250401927E52D008DD772 /* SIDirection.m in Sources */,
+				6F5BC88A193259D400B90395 /* SICircle.m in Sources */,
 				6F82503D1927DAB5008DD772 /* SIShuttleInAPIClient.m in Sources */,
 				6F8250431927EAA1008DD772 /* SIGeoLocation.m in Sources */,
 				6FD6D189192DC50600D8E37C /* SIHomeViewController.m in Sources */,
