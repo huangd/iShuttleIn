@@ -31,6 +31,8 @@
 
 @property (nonatomic) SICircle *circle;
 @property (nonatomic) SIStatusLine *statusLine;
+@property (nonatomic) SIDirection *youDirection;
+@property (nonatomic) SIDirection *shuttleDirection;
 
 @property (nonatomic) CLLocationManager *locationManager;
 
@@ -97,8 +99,11 @@
     [self.shuttleInAPIClient directionFrom:from
                                         to:to
                                   callback: ^(NSError *error, SIDirection *direction) {
-                                      [self.timeLabel setStartValue:direction.time*1000];
-                                      self.distanceLabel.text = [NSString stringWithFormat:@"%.1f", direction.distance];
+                                      if (error == nil) {
+                                          self.youDirection = direction;
+                                          [self.timeLabel setStartValue:direction.time*1000];
+                                          self.distanceLabel.text = [NSString stringWithFormat:@"%.1f", direction.distance];
+                                      }
                                   }];
 }
 
@@ -111,8 +116,17 @@
     [self.shuttleInAPIClient shuttleETA:self.routeTableViewController.vehicleId
                                      to:self.shuttleStop
                                callback:^(NSError *error, SIDirection *direction) {
-                                   [self.shuttleTimeLabel setStartValue:direction.time*1000];
-                                   self.shuttleDistanceLabel.text = [NSString stringWithFormat:@"%.1f", direction.distance];
+                                   if (error == nil) {
+                                       self.shuttleDirection = direction;
+                                       [self.shuttleTimeLabel setStartValue:direction.time*1000];
+                                       self.shuttleDistanceLabel.text = [NSString stringWithFormat:@"%.1f", direction.distance];
+                                       //Update counterLabel
+                                       int timeDiff = self.shuttleDirection.time - self.youDirection.time;
+                                       if (timeDiff > 0) {
+                                           self.counterLabel.startValue = timeDiff*1000;
+                                           [self.counterLabel start];
+                                       }
+                                   }
                                }];
 }
 
@@ -170,8 +184,8 @@
 #pragma mark
 #pragma mark TTCounterLabel
 - (void)setupCounterLabel {
-    CGFloat numberFont = 40;
-    CGFloat letterFont = 15;
+    CGFloat numberFont = 55;
+    CGFloat letterFont = 20;
     [self.counterLabel setBoldFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:numberFont]];
     [self.counterLabel setRegularFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:numberFont]];
     // The font property of the label is used as the font for H,M,S and MS
@@ -183,8 +197,7 @@
     
     self.counterLabel.countDirection = kCountDirectionDown;
     self.counterLabel.displayMode = kDisplayModeSeconds;
-    [self.counterLabel setStartValue:60000*10];
-//    [self.counterLabel start];
+    //    [self.counterLabel start];
 }
 
 - (void)setupTimeLabel {
@@ -211,14 +224,14 @@
     [self.shuttleTimeLabel updateApperance];
     self.shuttleTimeLabel.countDirection = kCountDirectionDown;
     self.shuttleTimeLabel.displayMode = kDisplayModeSeconds;
-
+    
 }
 
 
 #pragma mark
 #pragma mark SICircle
 - (void)setupCircle {
-    float radius = 80;
+    float radius = 110;
     CGRect counterLabelFrame = self.counterLabel.frame;
     CGPoint counterLabelCenterPoint = CGPointMake(counterLabelFrame.size.width/2+counterLabelFrame.origin.x,
                                                   counterLabelFrame.size.height/2+counterLabelFrame.origin.y);
@@ -228,7 +241,7 @@
                                       internalRadius:radius-5
                                    circleStrokeColor:[UIColor lightGrayColor]];
     [self.view addSubview:self.circle];
-
+    
 }
 
 #pragma mark
