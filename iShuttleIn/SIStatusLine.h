@@ -13,6 +13,7 @@
 - (id)initWithPosition:(CGPoint)position
              lineWidth:(CGFloat)lineWidth
             lineLength:(CGFloat)lineLength
+              iconSize:(CGFloat)iconSize
      lineStrokeColor:(UIColor *)lineStrokeColor;
 
 @end

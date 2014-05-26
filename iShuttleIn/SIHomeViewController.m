@@ -22,9 +22,9 @@
 
 @interface SIHomeViewController () <CLLocationManagerDelegate, RNFrostedSidebarDelegate, TTCounterLabelDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet TTCounterLabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *shuttleTimeLabel;
+@property (weak, nonatomic) IBOutlet TTCounterLabel *shuttleTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *shuttleDistanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stopLabel;
 @property (weak, nonatomic) IBOutlet TTCounterLabel *counterLabel;
@@ -70,6 +70,7 @@
     [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(shuttleETA) userInfo:nil repeats:YES];
     
     [self setupCounterLabel];
+    [self setupTimeLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -96,8 +97,8 @@
     [self.shuttleInAPIClient directionFrom:from
                                         to:to
                                   callback: ^(NSError *error, SIDirection *direction) {
-                                      self.timeLabel.text = [NSString stringWithFormat:@"%d minutes", direction.time/60];
-                                      self.distanceLabel.text = [NSString stringWithFormat:@"%g miles", direction.distance];
+                                      [self.timeLabel setStartValue:direction.time*1000];
+                                      self.distanceLabel.text = [NSString stringWithFormat:@"%.1f", direction.distance];
                                   }];
 }
 
@@ -110,8 +111,8 @@
     [self.shuttleInAPIClient shuttleETA:self.routeTableViewController.vehicleId
                                      to:self.shuttleStop
                                callback:^(NSError *error, SIDirection *direction) {
-                                   self.shuttleTimeLabel.text = [NSString stringWithFormat:@"%d minutes", direction.time/60];
-                                   self.shuttleDistanceLabel.text = [NSString stringWithFormat:@"%g miles", direction.distance];
+                                   [self.shuttleTimeLabel setStartValue:direction.time*1000];
+                                   self.shuttleDistanceLabel.text = [NSString stringWithFormat:@"%.1f", direction.distance];
                                }];
 }
 
@@ -183,8 +184,36 @@
     self.counterLabel.countDirection = kCountDirectionDown;
     self.counterLabel.displayMode = kDisplayModeSeconds;
     [self.counterLabel setStartValue:60000*10];
-    [self.counterLabel start];
+//    [self.counterLabel start];
 }
+
+- (void)setupTimeLabel {
+    CGFloat numberFont = 20;
+    CGFloat letterFont = 12;
+    [self.timeLabel setBoldFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:numberFont]];
+    [self.timeLabel setRegularFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:numberFont]];
+    // The font property of the label is used as the font for H,M,S and MS
+    [self.timeLabel setFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:letterFont]];
+    // Default label properties
+    self.timeLabel.textColor = [UIColor darkGrayColor];
+    // After making any changes we need to call update appearance
+    [self.timeLabel updateApperance];
+    self.timeLabel.countDirection = kCountDirectionDown;
+    self.timeLabel.displayMode = kDisplayModeSeconds;
+    
+    [self.shuttleTimeLabel setBoldFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:numberFont]];
+    [self.shuttleTimeLabel setRegularFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:numberFont]];
+    // The font property of the label is used as the font for H,M,S and MS
+    [self.shuttleTimeLabel setFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:letterFont]];
+    // Default label properties
+    self.shuttleTimeLabel.textColor = [UIColor darkGrayColor];
+    // After making any changes we need to call update appearance
+    [self.shuttleTimeLabel updateApperance];
+    self.shuttleTimeLabel.countDirection = kCountDirectionDown;
+    self.shuttleTimeLabel.displayMode = kDisplayModeSeconds;
+
+}
+
 
 #pragma mark
 #pragma mark SICircle
@@ -205,12 +234,13 @@
 #pragma mark
 #pragma mark SIStatusLine
 - (void)setupStatusLine {
-    CGFloat lineLength = 280;
-    CGFloat lineWidth = 15;
+    CGFloat lineLength = 300;
+    CGFloat lineWidth = 8;
     self.statusLine = [[SIStatusLine alloc] initWithPosition:CGPointMake(self.view.frame.size.width/2 - lineLength/2,
                                                                          self.view.frame.size.height - 100)
                                                    lineWidth:lineWidth
                                                   lineLength:lineLength
+                                                    iconSize:25
                                              lineStrokeColor:[UIColor lightGrayColor]];
     [self.view addSubview:self.statusLine];
 }

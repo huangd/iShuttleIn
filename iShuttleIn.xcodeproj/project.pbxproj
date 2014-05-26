@@ -24,6 +24,9 @@
 		6F1FAC95193161AA00B64A5C /* SIStopTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1FAC93193161AA00B64A5C /* SIStopTableViewController.xib */; };
 		6F5BC88A193259D400B90395 /* SICircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5BC889193259D400B90395 /* SICircle.m */; };
 		6F5BC88D1932653800B90395 /* SIStatusLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5BC88C1932653800B90395 /* SIStatusLine.m */; };
+		6F5BC8911932940900B90395 /* bus.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5BC88E1932940900B90395 /* bus.png */; };
+		6F5BC8921932940900B90395 /* marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5BC88F1932940900B90395 /* marker.png */; };
+		6F5BC8931932940900B90395 /* run.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5BC8901932940900B90395 /* run.png */; };
 		6F82503D1927DAB5008DD772 /* SIShuttleInAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F82503C1927DAB5008DD772 /* SIShuttleInAPIClient.m */; };
 		6F8250401927E52D008DD772 /* SIDirection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F82503F1927E52D008DD772 /* SIDirection.m */; };
 		6F8250431927EAA1008DD772 /* SIGeoLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8250421927EAA1008DD772 /* SIGeoLocation.m */; };
@@ -79,6 +82,9 @@
 		6F5BC889193259D400B90395 /* SICircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SICircle.m; sourceTree = "<group>"; };
 		6F5BC88B1932653800B90395 /* SIStatusLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIStatusLine.h; sourceTree = "<group>"; };
 		6F5BC88C1932653800B90395 /* SIStatusLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIStatusLine.m; sourceTree = "<group>"; };
+		6F5BC88E1932940900B90395 /* bus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bus.png; sourceTree = "<group>"; };
+		6F5BC88F1932940900B90395 /* marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = marker.png; sourceTree = "<group>"; };
+		6F5BC8901932940900B90395 /* run.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = run.png; sourceTree = "<group>"; };
 		6F82503B1927DAB5008DD772 /* SIShuttleInAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIShuttleInAPIClient.h; sourceTree = "<group>"; };
 		6F82503C1927DAB5008DD772 /* SIShuttleInAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIShuttleInAPIClient.m; sourceTree = "<group>"; };
 		6F82503E1927E52D008DD772 /* SIDirection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIDirection.h; sourceTree = "<group>"; };
@@ -174,6 +180,9 @@
 		6FC1818A192706B800BA624F /* iShuttleIn */ = {
 			isa = PBXGroup;
 			children = (
+				6F5BC88E1932940900B90395 /* bus.png */,
+				6F5BC88F1932940900B90395 /* marker.png */,
+				6F5BC8901932940900B90395 /* run.png */,
 				6F0F1E3C192F14DC00A543AE /* RNFrostedSidebar.h */,
 				6F0F1E3D192F14DC00A543AE /* RNFrostedSidebar.m */,
 				6F1BF0C1192C65310076E00D /* gear.png */,
@@ -329,11 +338,14 @@
 				6F1BF0C7192C65310076E00D /* gear.png in Resources */,
 				6F1FAC95193161AA00B64A5C /* SIStopTableViewController.xib in Resources */,
 				6F1BF0D1192C6A080076E00D /* SIRouteTableViewController.xib in Resources */,
+				6F5BC8911932940900B90395 /* bus.png in Resources */,
 				6F1BF0CC192C65310076E00D /* profile@2x.png in Resources */,
 				6FC1819D192706B800BA624F /* Images.xcassets in Resources */,
+				6F5BC8921932940900B90395 /* marker.png in Resources */,
 				6F1BF0C9192C65310076E00D /* globe.png in Resources */,
 				6F1BF0CA192C65310076E00D /* globe@2x.png in Resources */,
 				6FC1818F192706B800BA624F /* InfoPlist.strings in Resources */,
+				6F5BC8931932940900B90395 /* run.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
