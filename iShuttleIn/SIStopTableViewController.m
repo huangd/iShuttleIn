@@ -79,4 +79,11 @@
     self.stop = [self.stops objectAtIndex:indexPath.row];
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (NSString *)stopName {
+    if (self.stop != nil) {
+        return [self trimStopName:[self.stop objectForKey:@"Name"]];
+    }
+    return nil;
+}
 @end

@@ -12,5 +12,6 @@
 
 @property (nonatomic) NSNumber *routeId;
 @property (nonatomic) NSDictionary *stop;
+@property (nonatomic) NSString *stopName;
 
 @end

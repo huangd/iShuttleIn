@@ -81,8 +81,8 @@
 
 - (IBAction)tapBurger:(UIBarButtonItem *)sender {
     NSArray *images = @[
-                        [UIImage imageNamed:@"globe"],
-                        [UIImage imageNamed:@"profile"],
+                        [UIImage imageNamed:@"bus"],
+                        [UIImage imageNamed:@"marker"],
                         ];
     
     RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
@@ -106,7 +106,7 @@
     self.shuttleStop = [[SIGeoLocation alloc] initWithLat:[self.stopTableViewController.stop objectForKey:@"Latitude"]
                                                       lng:[self.stopTableViewController.stop objectForKey:@"Longitude"]];
     self.navigationItem.title = [self.routeTableViewController.route objectForKey:@"ShortName"];
-    self.stopLabel.text = [self.stopTableViewController.stop objectForKey:@"Name"];
+    self.stopLabel.text = self.stopTableViewController.stopName;
     
     [self.shuttleInAPIClient shuttleETA:self.routeTableViewController.vehicleId
                                      to:self.shuttleStop
@@ -163,7 +163,7 @@
     self.shuttleStop = [[SIGeoLocation alloc] initWithLat:[self.stopTableViewController.stop objectForKey:@"Latitude"]
                                                       lng:[self.stopTableViewController.stop objectForKey:@"Longitude"]];
     self.navigationItem.title = [self.routeTableViewController.route objectForKey:@"ShortName"];
-    self.stopLabel.text = [self.stopTableViewController.stop objectForKey:@"Name"];
+    self.stopLabel.text = self.stopTableViewController.stopName;
     [self updateDirectionFrom:currentLocation to:self.shuttleStop];
 }
 

@@ -12,21 +12,15 @@
 		6F0F1E42192F154C00A543AE /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F0F1E41192F154C00A543AE /* Accelerate.framework */; };
 		6F1BF0BF192C63550076E00D /* burger.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BF0BD192C63550076E00D /* burger.png */; };
 		6F1BF0C0192C63550076E00D /* burger@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BF0BE192C63550076E00D /* burger@2x.png */; };
-		6F1BF0C7192C65310076E00D /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BF0C1192C65310076E00D /* gear.png */; };
-		6F1BF0C8192C65310076E00D /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BF0C2192C65310076E00D /* gear@2x.png */; };
-		6F1BF0C9192C65310076E00D /* globe.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BF0C3192C65310076E00D /* globe.png */; };
-		6F1BF0CA192C65310076E00D /* globe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BF0C4192C65310076E00D /* globe@2x.png */; };
-		6F1BF0CB192C65310076E00D /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BF0C5192C65310076E00D /* profile.png */; };
-		6F1BF0CC192C65310076E00D /* profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BF0C6192C65310076E00D /* profile@2x.png */; };
 		6F1BF0D0192C6A080076E00D /* SIRouteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1BF0CE192C6A080076E00D /* SIRouteTableViewController.m */; };
 		6F1BF0D1192C6A080076E00D /* SIRouteTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BF0CF192C6A080076E00D /* SIRouteTableViewController.xib */; };
 		6F1FAC94193161AA00B64A5C /* SIStopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1FAC92193161AA00B64A5C /* SIStopTableViewController.m */; };
 		6F1FAC95193161AA00B64A5C /* SIStopTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1FAC93193161AA00B64A5C /* SIStopTableViewController.xib */; };
 		6F5BC88A193259D400B90395 /* SICircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5BC889193259D400B90395 /* SICircle.m */; };
 		6F5BC88D1932653800B90395 /* SIStatusLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5BC88C1932653800B90395 /* SIStatusLine.m */; };
-		6F5BC8911932940900B90395 /* bus.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5BC88E1932940900B90395 /* bus.png */; };
-		6F5BC8921932940900B90395 /* marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5BC88F1932940900B90395 /* marker.png */; };
-		6F5BC8931932940900B90395 /* run.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5BC8901932940900B90395 /* run.png */; };
+		6F5BC8971932E56F00B90395 /* bus.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5BC8941932E56F00B90395 /* bus.png */; };
+		6F5BC8981932E56F00B90395 /* marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5BC8951932E56F00B90395 /* marker.png */; };
+		6F5BC8991932E56F00B90395 /* run.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5BC8961932E56F00B90395 /* run.png */; };
 		6F82503D1927DAB5008DD772 /* SIShuttleInAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F82503C1927DAB5008DD772 /* SIShuttleInAPIClient.m */; };
 		6F8250401927E52D008DD772 /* SIDirection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F82503F1927E52D008DD772 /* SIDirection.m */; };
 		6F8250431927EAA1008DD772 /* SIGeoLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8250421927EAA1008DD772 /* SIGeoLocation.m */; };
@@ -66,12 +60,6 @@
 		6F0F1E41192F154C00A543AE /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		6F1BF0BD192C63550076E00D /* burger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = burger.png; sourceTree = "<group>"; };
 		6F1BF0BE192C63550076E00D /* burger@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "burger@2x.png"; sourceTree = "<group>"; };
-		6F1BF0C1192C65310076E00D /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
-		6F1BF0C2192C65310076E00D /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear@2x.png"; sourceTree = "<group>"; };
-		6F1BF0C3192C65310076E00D /* globe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = globe.png; sourceTree = "<group>"; };
-		6F1BF0C4192C65310076E00D /* globe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "globe@2x.png"; sourceTree = "<group>"; };
-		6F1BF0C5192C65310076E00D /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
-		6F1BF0C6192C65310076E00D /* profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile@2x.png"; sourceTree = "<group>"; };
 		6F1BF0CD192C6A080076E00D /* SIRouteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIRouteTableViewController.h; sourceTree = "<group>"; };
 		6F1BF0CE192C6A080076E00D /* SIRouteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIRouteTableViewController.m; sourceTree = "<group>"; };
 		6F1BF0CF192C6A080076E00D /* SIRouteTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SIRouteTableViewController.xib; sourceTree = "<group>"; };
@@ -82,9 +70,9 @@
 		6F5BC889193259D400B90395 /* SICircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SICircle.m; sourceTree = "<group>"; };
 		6F5BC88B1932653800B90395 /* SIStatusLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIStatusLine.h; sourceTree = "<group>"; };
 		6F5BC88C1932653800B90395 /* SIStatusLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIStatusLine.m; sourceTree = "<group>"; };
-		6F5BC88E1932940900B90395 /* bus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bus.png; sourceTree = "<group>"; };
-		6F5BC88F1932940900B90395 /* marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = marker.png; sourceTree = "<group>"; };
-		6F5BC8901932940900B90395 /* run.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = run.png; sourceTree = "<group>"; };
+		6F5BC8941932E56F00B90395 /* bus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bus.png; sourceTree = "<group>"; };
+		6F5BC8951932E56F00B90395 /* marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = marker.png; sourceTree = "<group>"; };
+		6F5BC8961932E56F00B90395 /* run.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = run.png; sourceTree = "<group>"; };
 		6F82503B1927DAB5008DD772 /* SIShuttleInAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIShuttleInAPIClient.h; sourceTree = "<group>"; };
 		6F82503C1927DAB5008DD772 /* SIShuttleInAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIShuttleInAPIClient.m; sourceTree = "<group>"; };
 		6F82503E1927E52D008DD772 /* SIDirection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIDirection.h; sourceTree = "<group>"; };
@@ -180,17 +168,11 @@
 		6FC1818A192706B800BA624F /* iShuttleIn */ = {
 			isa = PBXGroup;
 			children = (
-				6F5BC88E1932940900B90395 /* bus.png */,
-				6F5BC88F1932940900B90395 /* marker.png */,
-				6F5BC8901932940900B90395 /* run.png */,
+				6F5BC8941932E56F00B90395 /* bus.png */,
+				6F5BC8951932E56F00B90395 /* marker.png */,
+				6F5BC8961932E56F00B90395 /* run.png */,
 				6F0F1E3C192F14DC00A543AE /* RNFrostedSidebar.h */,
 				6F0F1E3D192F14DC00A543AE /* RNFrostedSidebar.m */,
-				6F1BF0C1192C65310076E00D /* gear.png */,
-				6F1BF0C2192C65310076E00D /* gear@2x.png */,
-				6F1BF0C3192C65310076E00D /* globe.png */,
-				6F1BF0C4192C65310076E00D /* globe@2x.png */,
-				6F1BF0C5192C65310076E00D /* profile.png */,
-				6F1BF0C6192C65310076E00D /* profile@2x.png */,
 				6F1BF0BD192C63550076E00D /* burger.png */,
 				6F1BF0BE192C63550076E00D /* burger@2x.png */,
 				6FC18193192706B800BA624F /* SIAppDelegate.h */,
@@ -331,21 +313,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F1BF0BF192C63550076E00D /* burger.png in Resources */,
-				6F1BF0C8192C65310076E00D /* gear@2x.png in Resources */,
+				6F5BC8991932E56F00B90395 /* run.png in Resources */,
 				6F1BF0C0192C63550076E00D /* burger@2x.png in Resources */,
 				6FD6D18A192DC50600D8E37C /* SIHomeViewController.xib in Resources */,
-				6F1BF0CB192C65310076E00D /* profile.png in Resources */,
-				6F1BF0C7192C65310076E00D /* gear.png in Resources */,
 				6F1FAC95193161AA00B64A5C /* SIStopTableViewController.xib in Resources */,
+				6F5BC8971932E56F00B90395 /* bus.png in Resources */,
 				6F1BF0D1192C6A080076E00D /* SIRouteTableViewController.xib in Resources */,
-				6F5BC8911932940900B90395 /* bus.png in Resources */,
-				6F1BF0CC192C65310076E00D /* profile@2x.png in Resources */,
 				6FC1819D192706B800BA624F /* Images.xcassets in Resources */,
-				6F5BC8921932940900B90395 /* marker.png in Resources */,
-				6F1BF0C9192C65310076E00D /* globe.png in Resources */,
-				6F1BF0CA192C65310076E00D /* globe@2x.png in Resources */,
 				6FC1818F192706B800BA624F /* InfoPlist.strings in Resources */,
-				6F5BC8931932940900B90395 /* run.png in Resources */,
+				6F5BC8981932E56F00B90395 /* marker.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
