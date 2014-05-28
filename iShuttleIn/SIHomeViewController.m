@@ -123,6 +123,7 @@
                                        //Update counterLabel
                                        int timeDiff = self.shuttleDirection.time - self.youDirection.time;
                                        if (timeDiff > 0) {
+                                           [self.counterLabel stop];
                                            self.counterLabel.startValue = timeDiff*1000;
                                            [self.counterLabel start];
                                        }
@@ -197,7 +198,6 @@
     
     self.counterLabel.countDirection = kCountDirectionDown;
     self.counterLabel.displayMode = kDisplayModeSeconds;
-    //    [self.counterLabel start];
 }
 
 - (void)setupTimeLabel {
