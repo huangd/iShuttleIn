@@ -7,6 +7,9 @@
 //
 
 #import "SIAppDelegate.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 #import "SIHomeViewController.h"
 
 @implementation SIAppDelegate
@@ -19,6 +22,7 @@
     self.window.rootViewController = navController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    [Fabric with:@[CrashlyticsKit]];
     return YES;
 }
 
