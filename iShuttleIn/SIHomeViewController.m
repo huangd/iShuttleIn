@@ -8,6 +8,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import <TTCounterLabel.h>
+#import "SIAppDelegate.h"
 #import "RNFrostedSidebar.h"
 #import "SICircle.h"
 #import "SIStatusLine.h"
@@ -76,6 +77,11 @@
   
   [self setupCounterLabel];
   [self setupTimeLabel];
+  
+  //Pass locationManager to appDelegate
+  //so that we can start/stop it when app goes between background/forground
+  SIAppDelegate *appDelegate = (SIAppDelegate *)[[UIApplication sharedApplication] delegate];
+  appDelegate.locationManager = self.locationManager;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
