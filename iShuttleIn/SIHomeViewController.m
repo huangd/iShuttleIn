@@ -129,6 +129,10 @@
                                    [self.counterLabel stop];
                                    self.counterLabel.startValue = timeDiff*1000;
                                    [self.counterLabel start];
+                                 } else {
+                                   //TODO: send out an warning as it is possible not to catch the shuttle
+                                   [self.counterLabel stop];
+                                   self.counterLabel.startValue = 0;
                                  }
                                }
                              }];
