@@ -73,14 +73,14 @@
   }
   [self.locationManager startUpdatingLocation];
   self.shuttleInAPIClient = [[SIShuttleInAPIClient alloc] init];
-  //Get ETA
+  // Get ETA
   [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(shuttleETA) userInfo:nil repeats:YES];
   
   [self setupCounterLabel];
   [self setupTimeLabel];
   
-  //Pass locationManager to appDelegate
-  //so that we can start/stop it when app goes between background/forground
+  // Pass locationManager to appDelegate
+  // start/stop it when app goes between background/forground
   SIAppDelegate *appDelegate = (SIAppDelegate *)[[UIApplication sharedApplication] delegate];
   appDelegate.locationManager = self.locationManager;
 }
@@ -89,9 +89,9 @@
   [super viewWillAppear:animated];
   [self setupCircle];
   [self setupStatusLine];
-  self.navigationItem.title = [[SIStopStore sharedStore].route objectForKey:@"ShortName"];
-  self.stopLabel.text = [SIStopTableViewController stopName];
   [self shuttleETA];
+  [self setNavigationItemTitle];
+  [self setStopName];
 }
 
 - (IBAction)tapBurger:(UIBarButtonItem *)sender {
@@ -116,6 +116,12 @@
                                     self.youDirection = direction;
                                     [self.timeLabel setStartValue:direction.time*1000];
                                     self.distanceLabel.text = [NSString stringWithFormat:@"%.1f", direction.distance];
+                                  } else {
+                                    // Clear the current data
+                                    // This could happen when user changes route
+                                    self.youDirection = nil;
+                                    [self.timeLabel setStartValue:0];
+                                    self.distanceLabel.text = nil;
                                   }
                                 }];
 }
@@ -124,8 +130,8 @@
   SIStopStore *sharedStore = [SIStopStore sharedStore];
   self.shuttleStop = [[SIGeoLocation alloc] initWithLat:[sharedStore.stop objectForKey:@"Latitude"]
                                                     lng:[sharedStore.stop objectForKey:@"Longitude"]];
-  self.navigationItem.title = [sharedStore.route objectForKey:@"ShortName"];
-  self.stopLabel.text = [SIStopTableViewController stopName];
+  [self setNavigationItemTitle];
+  [self setStopName];
   NSNumber *vehicleId = [[SIStopStore sharedStore].route objectForKey:@"ID"];
   
   [self.shuttleInAPIClient shuttleETA:vehicleId
@@ -146,6 +152,13 @@
                                    [self.counterLabel stop];
                                    self.counterLabel.startValue = 0;
                                  }
+                               } else {
+                                 // Clear the current data
+                                 self.shuttleDirection = nil;
+                                 [self.shuttleTimeLabel setStartValue:0];
+                                 self.shuttleDistanceLabel.text = nil;
+                                 [self.counterLabel stop];
+                                 self.counterLabel.startValue = 0;
                                }
                              }];
 }
@@ -196,7 +209,7 @@
   NSDictionary *stop = [SIStopStore sharedStore].stop;
   self.shuttleStop = [[SIGeoLocation alloc] initWithLat:[stop objectForKey:@"Latitude"]
                                                     lng:[stop objectForKey:@"Longitude"]];
-  self.stopLabel.text = [SIStopTableViewController stopName];
+  [self setStopName];
   [self updateDirectionFrom:currentLocation to:self.shuttleStop];
 }
 
@@ -274,5 +287,25 @@
                                                   iconSize:25
                                            lineStrokeColor:[UIColor lightGrayColor]];
   [self.view addSubview:self.statusLine];
+}
+
+#pragma mark
+#pragma makk Set route and stop label
+- (void)setNavigationItemTitle {
+  NSDictionary *route = [[SIStopStore sharedStore] route];
+  if (route == nil) {
+    self.navigationItem.title = @"Choose a route";
+  } else {
+    self.navigationItem.title = [route objectForKey:@"ShortName"];
+  }
+}
+
+- (void)setStopName {
+  NSString *stopName = [SIStopTableViewController stopName];
+  if (stopName == nil) {
+    self.stopLabel.text = @"Choose a stop";
+  } else {
+    self.stopLabel.text = stopName;
+  }
 }
 @end
