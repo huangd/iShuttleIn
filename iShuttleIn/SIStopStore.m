@@ -12,7 +12,8 @@
 
 NSDictionary *_stop;
 NSDictionary *_route;
-NSString *STOP_FILE_NAME = @"stop.plist";
+NSString *AM_STOP_FILE_NAME = @"amStop.plist";
+NSString *PM_STOP_FILE_NAME = @"pmStop.plist";
 NSString *ROUTE_FILE_NAME = @"route.plist";
 
 + (instancetype)sharedStore {
@@ -39,14 +40,25 @@ NSString *ROUTE_FILE_NAME = @"route.plist";
 
 - (NSDictionary *)stop {
   if (!_stop) {
-    _stop = [[NSDictionary alloc] initWithContentsOfFile:[SIStopStore filePath:STOP_FILE_NAME]];
+    NSInteger currentHour = [self getCurrentHour];
+    if (currentHour <= 12) {
+      _stop = [[NSDictionary alloc] initWithContentsOfFile:[SIStopStore filePath:AM_STOP_FILE_NAME]];
+    } else {
+      _stop = [[NSDictionary alloc] initWithContentsOfFile:[SIStopStore filePath:PM_STOP_FILE_NAME]];
+    }
   }
   return _stop;
 }
 
 - (void)setStop:(NSDictionary *)stop {
   _stop = [self removeNull:stop];
-  [_stop writeToFile:[SIStopStore filePath:STOP_FILE_NAME] atomically:YES];
+  NSInteger currentHour = [self getCurrentHour];
+  if (currentHour <= 12) {
+    [_stop writeToFile:[SIStopStore filePath:AM_STOP_FILE_NAME] atomically:YES];
+  } else {
+    [_stop writeToFile:[SIStopStore filePath:PM_STOP_FILE_NAME] atomically:YES];
+  }
+  
 }
 
 - (NSDictionary *)route {
@@ -76,6 +88,17 @@ NSString *ROUTE_FILE_NAME = @"route.plist";
     }
   };
   return newJson;
+}
+
+- (NSInteger)getCurrentHour {
+  NSDate *date = [NSDate date];
+  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+  dateFormatter.dateFormat = @"H";
+  NSString *hourString = [dateFormatter stringFromDate:date];
+  NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+  [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+  NSNumber *hour = [numberFormatter numberFromString:hourString];
+  return hour.integerValue;
 }
 
 @end
