@@ -10,8 +10,6 @@
 
 @interface SIStopTableViewController : UITableViewController
 
-@property (nonatomic) NSNumber *routeId;
-@property (nonatomic) NSDictionary *stop;
-@property (nonatomic) NSString *stopName;
++ (NSString *)stopName;
 
 @end

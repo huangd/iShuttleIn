@@ -10,8 +10,4 @@
 
 @interface SIRouteTableViewController : UITableViewController
 
-@property (nonatomic) NSDictionary *route;
-@property (nonatomic) NSNumber *routeId;
-@property (nonatomic) NSNumber *vehicleId;
-
 @end

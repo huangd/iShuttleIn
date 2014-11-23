@@ -19,6 +19,7 @@
 #import "SIShuttleInAPIClient.h"
 #import "SIRouteTableViewController.h"
 #import "SIStopTableViewController.h"
+#import "SIStopStore.h"
 
 
 @interface SIHomeViewController () <CLLocationManagerDelegate, RNFrostedSidebarDelegate, TTCounterLabelDelegate>
@@ -88,6 +89,9 @@
   [super viewWillAppear:animated];
   [self setupCircle];
   [self setupStatusLine];
+  self.navigationItem.title = [[SIStopStore sharedStore].route objectForKey:@"ShortName"];
+  self.stopLabel.text = [SIStopTableViewController stopName];
+  [self shuttleETA];
 }
 
 - (IBAction)tapBurger:(UIBarButtonItem *)sender {
@@ -117,12 +121,14 @@
 }
 
 - (void)shuttleETA {
-  self.shuttleStop = [[SIGeoLocation alloc] initWithLat:[self.stopTableViewController.stop objectForKey:@"Latitude"]
-                                                    lng:[self.stopTableViewController.stop objectForKey:@"Longitude"]];
-  self.navigationItem.title = [self.routeTableViewController.route objectForKey:@"ShortName"];
-  self.stopLabel.text = self.stopTableViewController.stopName;
+  SIStopStore *sharedStore = [SIStopStore sharedStore];
+  self.shuttleStop = [[SIGeoLocation alloc] initWithLat:[sharedStore.stop objectForKey:@"Latitude"]
+                                                    lng:[sharedStore.stop objectForKey:@"Longitude"]];
+  self.navigationItem.title = [sharedStore.route objectForKey:@"ShortName"];
+  self.stopLabel.text = [SIStopTableViewController stopName];
+  NSNumber *vehicleId = [[SIStopStore sharedStore].route objectForKey:@"ID"];
   
-  [self.shuttleInAPIClient shuttleETA:self.routeTableViewController.vehicleId
+  [self.shuttleInAPIClient shuttleETA:vehicleId
                                    to:self.shuttleStop
                              callback:^(NSError *error, SIDirection *direction) {
                                if (error == nil) {
@@ -165,7 +171,6 @@
           if (self.stopTableViewController == nil) {
             self.stopTableViewController = [[SIStopTableViewController alloc] init];
           }
-          self.stopTableViewController.routeId = self.routeTableViewController.routeId;
           [self.navigationController pushViewController:self.stopTableViewController animated:YES];
         }
       }];
@@ -188,10 +193,10 @@
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
   SIGeoLocation *currentLocation = [[SIGeoLocation alloc] initWithLat:@([[locations lastObject] coordinate].latitude)
                                                                   lng:@([[locations lastObject] coordinate].longitude)];
-  self.shuttleStop = [[SIGeoLocation alloc] initWithLat:[self.stopTableViewController.stop objectForKey:@"Latitude"]
-                                                    lng:[self.stopTableViewController.stop objectForKey:@"Longitude"]];
-  self.navigationItem.title = [self.routeTableViewController.route objectForKey:@"ShortName"];
-  self.stopLabel.text = self.stopTableViewController.stopName;
+  NSDictionary *stop = [SIStopStore sharedStore].stop;
+  self.shuttleStop = [[SIGeoLocation alloc] initWithLat:[stop objectForKey:@"Latitude"]
+                                                    lng:[stop objectForKey:@"Longitude"]];
+  self.stopLabel.text = [SIStopTableViewController stopName];
   [self updateDirectionFrom:currentLocation to:self.shuttleStop];
 }
 

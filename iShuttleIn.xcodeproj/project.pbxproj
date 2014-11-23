@@ -25,6 +25,7 @@
 		6F8250401927E52D008DD772 /* SIDirection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F82503F1927E52D008DD772 /* SIDirection.m */; };
 		6F8250431927EAA1008DD772 /* SIGeoLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8250421927EAA1008DD772 /* SIGeoLocation.m */; };
 		6F82504519288091008DD772 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F82504419288091008DD772 /* CoreLocation.framework */; };
+		6FA8B7BA1A2180F3004819D6 /* SIStopStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA8B7B91A2180F3004819D6 /* SIStopStore.m */; };
 		6FC18185192706B800BA624F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC18184192706B800BA624F /* Foundation.framework */; };
 		6FC18187192706B800BA624F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC18186192706B800BA624F /* CoreGraphics.framework */; };
 		6FC18189192706B800BA624F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC18188192706B800BA624F /* UIKit.framework */; };
@@ -83,6 +84,8 @@
 		6F8250411927EAA1008DD772 /* SIGeoLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIGeoLocation.h; sourceTree = "<group>"; };
 		6F8250421927EAA1008DD772 /* SIGeoLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIGeoLocation.m; sourceTree = "<group>"; };
 		6F82504419288091008DD772 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		6FA8B7B81A2180F3004819D6 /* SIStopStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIStopStore.h; sourceTree = "<group>"; };
+		6FA8B7B91A2180F3004819D6 /* SIStopStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIStopStore.m; sourceTree = "<group>"; };
 		6FC18181192706B800BA624F /* iShuttleIn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iShuttleIn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FC18184192706B800BA624F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6FC18186192706B800BA624F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -207,6 +210,8 @@
 				6F5BC889193259D400B90395 /* SICircle.m */,
 				6F5BC88B1932653800B90395 /* SIStatusLine.h */,
 				6F5BC88C1932653800B90395 /* SIStatusLine.m */,
+				6FA8B7B81A2180F3004819D6 /* SIStopStore.h */,
+				6FA8B7B91A2180F3004819D6 /* SIStopStore.m */,
 			);
 			path = iShuttleIn;
 			sourceTree = "<group>";
@@ -413,6 +418,7 @@
 				6F1FAC94193161AA00B64A5C /* SIStopTableViewController.m in Sources */,
 				6FC18195192706B800BA624F /* SIAppDelegate.m in Sources */,
 				6F8250401927E52D008DD772 /* SIDirection.m in Sources */,
+				6FA8B7BA1A2180F3004819D6 /* SIStopStore.m in Sources */,
 				6F5BC88D1932653800B90395 /* SIStatusLine.m in Sources */,
 				6F5BC88A193259D400B90395 /* SICircle.m in Sources */,
 				6F82503D1927DAB5008DD772 /* SIShuttleInAPIClient.m in Sources */,
