@@ -264,7 +264,7 @@
 - (void)setupCircle {
   float radius = 110;
   CGRect counterLabelFrame = self.counterLabel.frame;
-  CGPoint counterLabelCenterPoint = CGPointMake(counterLabelFrame.size.width/2+counterLabelFrame.origin.x,
+  CGPoint counterLabelCenterPoint = CGPointMake(self.view.frame.size.width/2,
                                                 counterLabelFrame.size.height/2+counterLabelFrame.origin.y);
   self.circle = [[SICircle alloc] initWithPosition:CGPointMake(counterLabelCenterPoint.x-radius,
                                                                counterLabelCenterPoint.y-radius+5)
@@ -278,7 +278,7 @@
 #pragma mark
 #pragma mark SIStatusLine
 - (void)setupStatusLine {
-  CGFloat lineLength = 300;
+  CGFloat lineLength = self.view.frame.size.width-20;
   CGFloat lineWidth = 8;
   self.statusLine = [[SIStatusLine alloc] initWithPosition:CGPointMake(self.view.frame.size.width/2 - lineLength/2,
                                                                        self.view.frame.size.height - 100)
