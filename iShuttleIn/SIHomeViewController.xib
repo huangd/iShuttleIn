@@ -6,12 +6,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SIHomeViewController">
             <connections>
-                <outlet property="counterLabel" destination="Whb-ik-9Bc" id="6zu-U5-FVu"/>
-                <outlet property="distanceLabel" destination="HuE-HT-UeT" id="eSP-W0-HSZ"/>
-                <outlet property="shuttleDistanceLabel" destination="rii-pb-zTl" id="LBX-x8-X8A"/>
-                <outlet property="shuttleTimeLabel" destination="2pP-cp-IDR" id="qef-0P-8BT"/>
-                <outlet property="stopLabel" destination="ZZw-Nn-Lpg" id="BNl-wL-pmb"/>
-                <outlet property="timeLabel" destination="mjM-XV-YNo" id="Whu-6m-pji"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,29 +14,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mjM-XV-YNo" customClass="TTCounterLabel">
-                    <rect key="frame" x="40" y="500" width="80" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HuE-HT-UeT">
-                    <rect key="frame" x="40" y="462" width="80" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pP-cp-IDR" customClass="TTCounterLabel">
-                    <rect key="frame" x="190" y="500" width="80" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rii-pb-zTl">
-                    <rect key="frame" x="190" y="462" width="80" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Piz-qv-f9t">
                     <rect key="frame" x="20" y="27" width="19" height="22"/>
                     <state key="normal" image="burger.png">
@@ -52,30 +23,7 @@
                         <action selector="tapBurger:" destination="-1" eventType="touchUpInside" id="qAs-Df-y7k"/>
                     </connections>
                 </button>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZw-Nn-Lpg">
-                    <rect key="frame" x="20" y="433" width="280" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="CounterLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Whb-ik-9Bc" customClass="TTCounterLabel">
-                    <rect key="frame" x="20" y="87" width="280" height="212"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
-            <constraints>
-                <constraint firstAttribute="centerX" secondItem="Whb-ik-9Bc" secondAttribute="centerX" id="4nh-yg-7CT"/>
-                <constraint firstAttribute="centerX" secondItem="ZZw-Nn-Lpg" secondAttribute="centerX" id="EVH-IK-yWZ"/>
-                <constraint firstAttribute="bottom" secondItem="2pP-cp-IDR" secondAttribute="bottom" constant="38" id="OR6-yd-Zce"/>
-                <constraint firstAttribute="bottom" secondItem="ZZw-Nn-Lpg" secondAttribute="bottom" constant="114" id="PNj-BA-RV1"/>
-                <constraint firstAttribute="bottom" secondItem="rii-pb-zTl" secondAttribute="bottom" constant="76" id="TDJ-ZM-ENC"/>
-                <constraint firstAttribute="trailing" secondItem="2pP-cp-IDR" secondAttribute="trailing" constant="55" id="VHp-qd-1L3"/>
-                <constraint firstAttribute="bottom" secondItem="HuE-HT-UeT" secondAttribute="bottom" constant="76" id="bhL-8H-dxp"/>
-                <constraint firstAttribute="trailing" secondItem="rii-pb-zTl" secondAttribute="trailing" constant="70" id="fLW-hI-CfC"/>
-                <constraint firstAttribute="bottom" secondItem="mjM-XV-YNo" secondAttribute="bottom" constant="38" id="lDL-ol-6PL"/>
-            </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
         </view>
     </objects>

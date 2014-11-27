@@ -24,12 +24,12 @@
 
 @interface SIHomeViewController () <CLLocationManagerDelegate, RNFrostedSidebarDelegate, TTCounterLabelDelegate>
 
-@property (weak, nonatomic) IBOutlet TTCounterLabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
-@property (weak, nonatomic) IBOutlet TTCounterLabel *shuttleTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *shuttleDistanceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *stopLabel;
-@property (weak, nonatomic) IBOutlet TTCounterLabel *counterLabel;
+@property (nonatomic) TTCounterLabel *timeLabel;
+@property (nonatomic) UILabel *distanceLabel;
+@property (nonatomic) TTCounterLabel *shuttleTimeLabel;
+@property (nonatomic) UILabel *shuttleDistanceLabel;
+@property (nonatomic) UILabel *stopLabel;
+@property (nonatomic) TTCounterLabel *counterLabel;
 
 @property (nonatomic) SICircle *circle;
 @property (nonatomic) SIStatusLine *statusLine;
@@ -63,6 +63,16 @@
 #pragma mark ViewController
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
+  // Setup and configure view objects
+  // Setup order matters
+  [self setupCounterLabel];
+  [self setupCircle];
+  [self setupStatusLine];
+  [self setupTimeLabel];
+  [self setupDistanceLabel];
+  [self setupStopLabel];
+  
   // Setup CLLocationManager
   self.locationManager = [[CLLocationManager alloc] init];
   self.locationManager.delegate = self;
@@ -72,13 +82,12 @@
     [self.locationManager requestWhenInUseAuthorization];
   }
   [self.locationManager startUpdatingLocation];
+
   self.shuttleInAPIClient = [[SIShuttleInAPIClient alloc] init];
   // Get ETA
   [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(shuttleETA) userInfo:nil repeats:YES];
   
-  [self setupCounterLabel];
-  [self setupTimeLabel];
-  
+  // TODO: use notification center for it.
   // Pass locationManager to appDelegate
   // start/stop it when app goes between background/forground
   SIAppDelegate *appDelegate = (SIAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -87,8 +96,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  [self setupCircle];
-  [self setupStatusLine];
+  
   [self shuttleETA];
   [self setNavigationItemTitle];
   [self setStopName];
@@ -216,8 +224,21 @@
 #pragma mark
 #pragma mark TTCounterLabel
 - (void)setupCounterLabel {
-  CGFloat numberFont = 55;
-  CGFloat letterFont = 20;
+  CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
+  CGFloat screenHeight = UIScreen.mainScreen.bounds.size.height;
+  // Scale frameWidth and frameHeight based on the width
+  // of the device. 320 is the default width for iPhone4
+  CGFloat frameWidth = 280*(screenWidth/320);
+  CGFloat frameHeight = 212*(screenWidth/320);
+  CGFloat frameX = (screenWidth - frameWidth) / 2;
+  CGFloat frameY = (screenHeight - frameHeight) * 0.35;
+  self.counterLabel = [[TTCounterLabel alloc] initWithFrame:CGRectMake(frameX, frameY, frameWidth, frameHeight)];
+  [self.view addSubview:self.counterLabel];
+  
+  // Scale numberFont and letterFont based on the width
+  // of the device. 320 is the default width for iPhone4
+  CGFloat numberFont = 65*(screenWidth/320);
+  CGFloat letterFont = 25*(screenWidth/320);
   [self.counterLabel setBoldFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:numberFont]];
   [self.counterLabel setRegularFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:numberFont]];
   // The font property of the label is used as the font for H,M,S and MS
@@ -232,6 +253,18 @@
 }
 
 - (void)setupTimeLabel {
+  CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
+  CGFloat labelWidth = 80;
+  CGFloat labelHeight = 30;
+  self.timeLabel = [[TTCounterLabel alloc] initWithFrame:CGRectMake(screenWidth/4-labelWidth/2,
+                                                                    self.statusLine.frame.origin.y+labelHeight,
+                                                                    labelWidth, labelHeight)];
+  [self.view addSubview:self.timeLabel];
+  self.shuttleTimeLabel = [[TTCounterLabel alloc] initWithFrame:CGRectMake(screenWidth*0.75-labelWidth/2,
+                                                                           self.statusLine.frame.origin.y+labelHeight,
+                                                                           labelWidth, labelHeight)];
+  [self.view addSubview:self.shuttleTimeLabel];
+  
   CGFloat numberFont = 20;
   CGFloat letterFont = 12;
   [self.timeLabel setBoldFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:numberFont]];
@@ -258,13 +291,49 @@
   
 }
 
+- (void)setupDistanceLabel {
+  CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
+  CGFloat labelWidth = 80;
+  CGFloat labelHeight = 30;
+  // Setup distanceLabel
+  self.distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(screenWidth/4-labelWidth/2,
+                                                                 self.statusLine.frame.origin.y,
+                                                                 labelWidth, labelHeight)];
+  self.distanceLabel.textColor = [UIColor darkGrayColor];
+  self.distanceLabel.textAlignment = NSTextAlignmentCenter;
+  [self.view addSubview:self.distanceLabel];
+  
+  // Setup shuttleDistanceLabel
+  self.shuttleDistanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(screenWidth*0.75-labelWidth/2,
+                                                                        self.statusLine.frame.origin.y,
+                                                                        labelWidth, labelHeight)];
+  self.shuttleDistanceLabel.textColor = [UIColor darkGrayColor];
+  self.shuttleDistanceLabel.textAlignment = NSTextAlignmentCenter;
+  [self.view addSubview:self.shuttleDistanceLabel];
+}
+
+- (void)setupStopLabel {
+  CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
+  CGFloat screenHeigth = UIScreen.mainScreen.bounds.size.height;
+  CGFloat labelWidth = screenWidth-40;
+  CGFloat labelHeight = screenHeigth/27;
+  self.stopLabel = [[UILabel alloc] initWithFrame:CGRectMake(screenWidth/2-labelWidth/2,
+                                                                 screenHeigth*0.75,
+                                                                 labelWidth, labelHeight)];
+  self.stopLabel.textColor = [UIColor darkGrayColor];
+  self.stopLabel.textAlignment = NSTextAlignmentCenter;
+  [self.view addSubview:self.stopLabel];
+  
+}
+
 
 #pragma mark
 #pragma mark SICircle
 - (void)setupCircle {
-  float radius = 110;
+  CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
+  CGFloat radius = screenWidth / 2.5;
   CGRect counterLabelFrame = self.counterLabel.frame;
-  CGPoint counterLabelCenterPoint = CGPointMake(self.view.frame.size.width/2,
+  CGPoint counterLabelCenterPoint = CGPointMake(screenWidth / 2,
                                                 counterLabelFrame.size.height/2+counterLabelFrame.origin.y);
   self.circle = [[SICircle alloc] initWithPosition:CGPointMake(counterLabelCenterPoint.x-radius,
                                                                counterLabelCenterPoint.y-radius+5)
@@ -278,10 +347,12 @@
 #pragma mark
 #pragma mark SIStatusLine
 - (void)setupStatusLine {
-  CGFloat lineLength = self.view.frame.size.width-20;
+  CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
+  CGFloat screenHeigth = UIScreen.mainScreen.bounds.size.height;
+  CGFloat lineLength = screenWidth-20;
   CGFloat lineWidth = 8;
-  self.statusLine = [[SIStatusLine alloc] initWithPosition:CGPointMake(self.view.frame.size.width/2 - lineLength/2,
-                                                                       self.view.frame.size.height - 100)
+  self.statusLine = [[SIStatusLine alloc] initWithPosition:CGPointMake(screenWidth/2 - lineLength/2,
+                                                                       screenHeigth * 0.85)
                                                  lineWidth:lineWidth
                                                 lineLength:lineLength
                                                   iconSize:25
