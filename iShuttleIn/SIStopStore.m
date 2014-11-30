@@ -21,6 +21,8 @@ NSString *AM_STOP_FILE_NAME = @"amStop.plist";
 NSString *PM_STOP_FILE_NAME = @"pmStop.plist";
 NSString *ROUTE_FILE_NAME = @"route.plist";
 
+#pragma mark
+#pragma mark Singleton
 + (instancetype)sharedStore {
   static SIStopStore *sharedStore = nil;
   
@@ -44,13 +46,15 @@ NSString *ROUTE_FILE_NAME = @"route.plist";
   return self;
 }
 
+#pragma mark
+#pragma mark Stop
 - (NSDictionary *)stop {
   if (!_stop) {
     NSInteger currentHour = [self getCurrentHour];
     if (currentHour <= 12) {
-      _stop = [[NSDictionary alloc] initWithContentsOfFile:[SIStopStore filePath:AM_STOP_FILE_NAME]];
+      _stop = [[NSDictionary alloc] initWithContentsOfFile:[self filePath:AM_STOP_FILE_NAME]];
     } else {
-      _stop = [[NSDictionary alloc] initWithContentsOfFile:[SIStopStore filePath:PM_STOP_FILE_NAME]];
+      _stop = [[NSDictionary alloc] initWithContentsOfFile:[self filePath:PM_STOP_FILE_NAME]];
     }
   }
   return _stop;
@@ -60,27 +64,31 @@ NSString *ROUTE_FILE_NAME = @"route.plist";
   _stop = [self removeNull:stop];
   NSInteger currentHour = [self getCurrentHour];
   if (currentHour <= 12) {
-    [_stop writeToFile:[SIStopStore filePath:AM_STOP_FILE_NAME] atomically:YES];
+    [_stop writeToFile:[self filePath:AM_STOP_FILE_NAME] atomically:YES];
   } else {
-    [_stop writeToFile:[SIStopStore filePath:PM_STOP_FILE_NAME] atomically:YES];
+    [_stop writeToFile:[self filePath:PM_STOP_FILE_NAME] atomically:YES];
   }
   
 }
 
+#pragma mark
+#pragma mark Route
 - (NSDictionary *)route {
   if (!_route) {
-    _route = [[NSDictionary alloc] initWithContentsOfFile:[SIStopStore filePath:ROUTE_FILE_NAME]];
+    _route = [[NSDictionary alloc] initWithContentsOfFile:[self filePath:ROUTE_FILE_NAME]];
   }
   return _route;
 }
 
 - (void)setRoute:(NSDictionary *)route {
   _route = [self removeNull:route];
-  [_route writeToFile:[SIStopStore filePath:ROUTE_FILE_NAME] atomically:YES];
+  [_route writeToFile:[self filePath:ROUTE_FILE_NAME] atomically:YES];
   self.stop = [[NSDictionary alloc] init];
 }
 
-+ (NSString *)filePath:(NSString *)fileName {
+#pragma mark
+#pragma mark Helper
+- (NSString *)filePath:(NSString *)fileName {
   NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString *documentDirectory = [documentDirectories firstObject];
   return [documentDirectory stringByAppendingPathComponent:fileName];
