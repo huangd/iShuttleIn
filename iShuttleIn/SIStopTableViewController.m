@@ -26,7 +26,7 @@
   if (self) {
     self.navigationItem.hidesBackButton = NO;
     self.navigationItem.title = @"Stops";
-    self.shuttleInAPIClient = [[SIShuttleInAPIClient alloc] init];
+    self.shuttleInAPIClient = [SIShuttleInAPIClient sharedShuttleInAPIClient];
     
   }
   return self;

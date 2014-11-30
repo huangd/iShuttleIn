@@ -83,7 +83,7 @@
   }
   [self.locationManager startUpdatingLocation];
 
-  self.shuttleInAPIClient = [[SIShuttleInAPIClient alloc] init];
+  self.shuttleInAPIClient = [SIShuttleInAPIClient sharedShuttleInAPIClient];
   // Get ETA
   [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(shuttleETA) userInfo:nil repeats:YES];
   

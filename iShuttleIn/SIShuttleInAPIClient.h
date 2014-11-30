@@ -13,6 +13,8 @@
 
 @interface SIShuttleInAPIClient : NSObject
 
++ (SIShuttleInAPIClient *)sharedShuttleInAPIClient;
+
 - (AFHTTPRequestOperation *)directionFrom:(SIGeoLocation *)from
                             to:(SIGeoLocation *)to
                       callback:(void (^)(NSError *error, SIDirection *direction))callback;

@@ -7,6 +7,11 @@
 //
 
 #import "SIStopStore.h"
+#import "SIShuttleInAPIClient.h"
+
+@interface SIStopStore ()
+@property (nonatomic) SIShuttleInAPIClient *shuttleInAPIClient;
+@end
 
 @implementation SIStopStore
 
@@ -35,6 +40,7 @@ NSString *ROUTE_FILE_NAME = @"route.plist";
 //Here is the real(secret) initializer
 - (instancetype)initPrivate {
   self = [super init];
+  self.shuttleInAPIClient = [SIShuttleInAPIClient sharedShuttleInAPIClient];
   return self;
 }
 
