@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F007E081A2B91DD000D93EE /* SILocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F007E071A2B91DD000D93EE /* SILocationManager.m */; };
 		6F0F1E3E192F14DC00A543AE /* RNFrostedSidebar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0F1E3D192F14DC00A543AE /* RNFrostedSidebar.m */; };
 		6F0F1E40192F154300A543AE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F0F1E3F192F154300A543AE /* QuartzCore.framework */; };
 		6F0F1E42192F154C00A543AE /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F0F1E41192F154C00A543AE /* Accelerate.framework */; };
@@ -58,6 +59,8 @@
 /* Begin PBXFileReference section */
 		29BA34542A4A373CDE0256F2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		2BF249DC9B44E47108923B4C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		6F007E061A2B91DD000D93EE /* SILocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SILocationManager.h; sourceTree = "<group>"; };
+		6F007E071A2B91DD000D93EE /* SILocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SILocationManager.m; sourceTree = "<group>"; };
 		6F0F1E3C192F14DC00A543AE /* RNFrostedSidebar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNFrostedSidebar.h; sourceTree = "<group>"; };
 		6F0F1E3D192F14DC00A543AE /* RNFrostedSidebar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNFrostedSidebar.m; sourceTree = "<group>"; };
 		6F0F1E3F192F154300A543AE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -212,6 +215,8 @@
 				6F5BC88C1932653800B90395 /* SIStatusLine.m */,
 				6FA8B7B81A2180F3004819D6 /* SIStopStore.h */,
 				6FA8B7B91A2180F3004819D6 /* SIStopStore.m */,
+				6F007E061A2B91DD000D93EE /* SILocationManager.h */,
+				6F007E071A2B91DD000D93EE /* SILocationManager.m */,
 			);
 			path = iShuttleIn;
 			sourceTree = "<group>";
@@ -416,6 +421,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F1FAC94193161AA00B64A5C /* SIStopTableViewController.m in Sources */,
+				6F007E081A2B91DD000D93EE /* SILocationManager.m in Sources */,
 				6FC18195192706B800BA624F /* SIAppDelegate.m in Sources */,
 				6F8250401927E52D008DD772 /* SIDirection.m in Sources */,
 				6FA8B7BA1A2180F3004819D6 /* SIStopStore.m in Sources */,

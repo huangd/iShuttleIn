@@ -20,9 +20,10 @@
 #import "SIRouteTableViewController.h"
 #import "SIStopTableViewController.h"
 #import "SIStopStore.h"
+#import "SILocationManager.h"
 
 
-@interface SIHomeViewController () <CLLocationManagerDelegate, RNFrostedSidebarDelegate, TTCounterLabelDelegate>
+@interface SIHomeViewController () <RNFrostedSidebarDelegate, TTCounterLabelDelegate>
 
 @property (nonatomic) TTCounterLabel *timeLabel;
 @property (nonatomic) UILabel *distanceLabel;
@@ -36,7 +37,7 @@
 @property (nonatomic) SIDirection *youDirection;
 @property (nonatomic) SIDirection *shuttleDirection;
 
-@property (nonatomic) CLLocationManager *locationManager;
+@property (nonatomic) SILocationManager *locationManager;
 
 @property (nonatomic) SIGeoLocation *shuttleStop;
 @property (nonatomic) SIShuttleInAPIClient *shuttleInAPIClient;
@@ -55,6 +56,7 @@
                                                                style:UIBarButtonItemStylePlain
                                                               target:self action:@selector(tapBurger:)];
     self.navigationItem.leftBarButtonItem = burger;
+    self.shuttleInAPIClient = [SIShuttleInAPIClient sharedShuttleInAPIClient];
   }
   return self;
 }
@@ -73,35 +75,17 @@
   [self setupDistanceLabel];
   [self setupStopLabel];
   
-  // Setup CLLocationManager
-  self.locationManager = [[CLLocationManager alloc] init];
-  self.locationManager.delegate = self;
-  self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-  // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
-  if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-    [self.locationManager requestWhenInUseAuthorization];
-  }
-  [self.locationManager startUpdatingLocation];
+  // Setup SILocationManager
+  self.locationManager = [SILocationManager sharedLocationManager];
 
-  self.shuttleInAPIClient = [SIShuttleInAPIClient sharedShuttleInAPIClient];
   // Get ETA
-  [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(shuttleETA) userInfo:nil repeats:YES];
-  
-  // Set notification center observer to start/stop locationManager
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(stopLocationManager:)
-                                               name:UIApplicationWillResignActiveNotification
-                                             object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(startLocationManager:)
-                                               name:UIApplicationWillEnterForegroundNotification
-                                             object:nil];
+  [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(updateETA) userInfo:nil repeats:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   
-  [self shuttleETA];
+  [self updateETA];
   [self setNavigationItemTitle];
   [self setStopName];
 }
@@ -138,6 +122,8 @@
                                 }];
 }
 
+#pragma mark
+#pragma mark ETA
 - (void)shuttleETA {
   SIStopStore *sharedStore = [SIStopStore sharedStore];
   self.shuttleStop = [[SIGeoLocation alloc] initWithLat:[sharedStore.stop objectForKey:@"Latitude"]
@@ -175,6 +161,20 @@
                              }];
 }
 
+- (void)youETA {
+  SIGeoLocation *currentLocation = self.locationManager.lastLocation;
+  NSDictionary *stop = [SIStopStore sharedStore].stop;
+  self.shuttleStop = [[SIGeoLocation alloc] initWithLat:[stop objectForKey:@"Latitude"]
+                                                    lng:[stop objectForKey:@"Longitude"]];
+  [self setStopName];
+  [self updateDirectionFrom:currentLocation to:self.shuttleStop];
+}
+
+- (void)updateETA {
+  [self shuttleETA];
+  [self youETA];
+}
+
 #pragma mark
 #pragma RNFrostedSidebarDelegate
 -(void)sidebar:(RNFrostedSidebar *)sidebar didTapItemAtIndex:(NSUInteger)index {
@@ -208,22 +208,6 @@
   }
 }
 
-#pragma mark
-#pragma mark CLLocationManagerDelegate
--(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-  NSLog(@"Error: %@", error);
-  NSLog(@"Failed to get current location");
-}
-
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-  SIGeoLocation *currentLocation = [[SIGeoLocation alloc] initWithLat:@([[locations lastObject] coordinate].latitude)
-                                                                  lng:@([[locations lastObject] coordinate].longitude)];
-  NSDictionary *stop = [SIStopStore sharedStore].stop;
-  self.shuttleStop = [[SIGeoLocation alloc] initWithLat:[stop objectForKey:@"Latitude"]
-                                                    lng:[stop objectForKey:@"Longitude"]];
-  [self setStopName];
-  [self updateDirectionFrom:currentLocation to:self.shuttleStop];
-}
 
 #pragma mark
 #pragma mark TTCounterLabel
@@ -386,13 +370,4 @@
   }
 }
 
-#pragma mark
-#pragma mark start/stop locationManger
-- (void)startLocationManager:(NSNotification *)note {
-  [self.locationManager startUpdatingLocation];
-}
-
-- (void)stopLocationManager:(NSNotification *)note {
-  [self.locationManager stopUpdatingLocation];
-}
 @end
