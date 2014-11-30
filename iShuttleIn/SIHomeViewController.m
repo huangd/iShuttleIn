@@ -79,7 +79,7 @@
   self.locationManager = [SILocationManager sharedLocationManager];
 
   // Get ETA
-  [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(updateETA) userInfo:nil repeats:YES];
+  [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(updateETA) userInfo:nil repeats:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

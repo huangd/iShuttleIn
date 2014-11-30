@@ -8,17 +8,20 @@
 
 #import "SIStopStore.h"
 #import "SIShuttleInAPIClient.h"
+#import "SILocationManager.h"
+#import "SIDirection.h"
 
 @interface SIStopStore ()
 @property (nonatomic) SIShuttleInAPIClient *shuttleInAPIClient;
+@property (nonatomic) NSMutableArray *stops;
+@property (nonatomic) SILocationManager *locationManager;
 @end
 
 @implementation SIStopStore
 
 NSDictionary *_stop;
 NSDictionary *_route;
-NSString *AM_STOP_FILE_NAME = @"amStop.plist";
-NSString *PM_STOP_FILE_NAME = @"pmStop.plist";
+NSString *STOPS_FILE_NAME = @"stops.plist";
 NSString *ROUTE_FILE_NAME = @"route.plist";
 
 #pragma mark
@@ -43,6 +46,17 @@ NSString *ROUTE_FILE_NAME = @"route.plist";
 - (instancetype)initPrivate {
   self = [super init];
   self.shuttleInAPIClient = [SIShuttleInAPIClient sharedShuttleInAPIClient];
+  self.locationManager = [SILocationManager sharedLocationManager];
+  
+  // Set notification center observer to update/save stops
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(saveStops:)
+                                               name:UIApplicationWillResignActiveNotification
+                                             object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(updateStop:)
+                                               name:UIApplicationWillEnterForegroundNotification
+                                             object:nil];
   return self;
 }
 
@@ -50,25 +64,55 @@ NSString *ROUTE_FILE_NAME = @"route.plist";
 #pragma mark Stop
 - (NSDictionary *)stop {
   if (!_stop) {
-    NSInteger currentHour = [self getCurrentHour];
-    if (currentHour <= 12) {
-      _stop = [[NSDictionary alloc] initWithContentsOfFile:[self filePath:AM_STOP_FILE_NAME]];
-    } else {
-      _stop = [[NSDictionary alloc] initWithContentsOfFile:[self filePath:PM_STOP_FILE_NAME]];
+    self.stops = [[NSMutableArray alloc] initWithContentsOfFile:[self filePath:STOPS_FILE_NAME]];
+    if (self.stops == nil) {
+      self.stops = [[NSMutableArray alloc] initWithCapacity:3];
     }
+    _stop = self.stops.firstObject;
   }
+  // Update stop distance everytime getStop is called
+  [self updateStopDistance];
   return _stop;
 }
 
 - (void)setStop:(NSDictionary *)stop {
   _stop = [self removeNull:stop];
-  NSInteger currentHour = [self getCurrentHour];
-  if (currentHour <= 12) {
-    [_stop writeToFile:[self filePath:AM_STOP_FILE_NAME] atomically:YES];
-  } else {
-    [_stop writeToFile:[self filePath:PM_STOP_FILE_NAME] atomically:YES];
+  [_stop setValue:0 forKey:@"distance"];
+  [self.stops addObject:_stop];
+  NSUInteger maxSavedStops = 3;
+  if (self.stops.count == maxSavedStops) {
+    [self.stops removeObjectAtIndex:0];
   }
   
+  [self.stops writeToFile:[self filePath:STOPS_FILE_NAME] atomically:YES];
+}
+
+- (void)resetStops {
+  _stop = nil;
+  [self.stops removeAllObjects];
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  [fileManager removeItemAtPath:[self filePath:STOPS_FILE_NAME] error:nil];
+}
+
+- (void)updateStopDistance {
+  SIGeoLocation *lastLocation = self.locationManager.lastLocation;
+  for (NSDictionary *stop in self.stops) {
+    SIGeoLocation *stopLocation = [[SIGeoLocation alloc] initWithLat:[stop objectForKey:@"Latitude"]
+                                                                 lng:[stop objectForKey:@"Longitude"]];
+    [self.shuttleInAPIClient directionFrom:lastLocation
+                                        to:stopLocation
+                                  callback: ^(NSError *error, SIDirection *direction) {
+                                    if (error == nil) {
+                                      NSNumber *distance = [[NSNumber alloc] initWithDouble:direction.distance];
+                                      [stop setValue:distance forKey:@"distance"];
+                                    } else {
+                                      // Set MAX_INT to indicate an error
+                                      NSNumber *distance = [[NSNumber alloc] initWithInt: INT_MAX];
+                                      [stop setValue:distance forKey:@"distance"];
+                                    }
+                                  }];
+    
+  };
 }
 
 #pragma mark
@@ -83,7 +127,7 @@ NSString *ROUTE_FILE_NAME = @"route.plist";
 - (void)setRoute:(NSDictionary *)route {
   _route = [self removeNull:route];
   [_route writeToFile:[self filePath:ROUTE_FILE_NAME] atomically:YES];
-  self.stop = [[NSDictionary alloc] init];
+  [self resetStops];
 }
 
 #pragma mark
@@ -104,15 +148,21 @@ NSString *ROUTE_FILE_NAME = @"route.plist";
   return newJson;
 }
 
-- (NSInteger)getCurrentHour {
-  NSDate *date = [NSDate date];
-  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-  dateFormatter.dateFormat = @"H";
-  NSString *hourString = [dateFormatter stringFromDate:date];
-  NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-  [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-  NSNumber *hour = [numberFormatter numberFromString:hourString];
-  return hour.integerValue;
+#pragma mark
+#pragma mark update stop based on currentLocation
+- (void)saveStops:(NSNotification *)note {
+  [self.stops sortUsingComparator:^(NSDictionary *stopOne, NSDictionary *stopTwo){
+    NSNumber *distanceOne = [stopOne valueForKey:@"distance"];
+    NSNumber *distanceTwo = [stopTwo valueForKey:@"distance"];
+    if ( distanceOne.doubleValue <= distanceTwo.doubleValue) {
+      return (NSComparisonResult)NSOrderedAscending;
+    }
+    return (NSComparisonResult)NSOrderedDescending;
+  }];
+  [self.stops writeToFile:[self filePath:STOPS_FILE_NAME] atomically:YES];
 }
 
+- (void)updateStop:(NSNotification *)note {
+  self.stop = self.stops.firstObject;
+}
 @end
