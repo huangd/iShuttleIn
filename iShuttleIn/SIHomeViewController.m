@@ -87,11 +87,15 @@
   // Get ETA
   [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(shuttleETA) userInfo:nil repeats:YES];
   
-  // TODO: use notification center for it.
-  // Pass locationManager to appDelegate
-  // start/stop it when app goes between background/forground
-  SIAppDelegate *appDelegate = (SIAppDelegate *)[[UIApplication sharedApplication] delegate];
-  appDelegate.locationManager = self.locationManager;
+  // Set notification center observer to start/stop locationManager
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(stopLocationManager:)
+                                               name:UIApplicationWillResignActiveNotification
+                                             object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(startLocationManager:)
+                                               name:UIApplicationWillEnterForegroundNotification
+                                             object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -295,11 +299,13 @@
   CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
   CGFloat labelWidth = 80;
   CGFloat labelHeight = 30;
+  CGFloat fontSize = 18;
   // Setup distanceLabel
   self.distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(screenWidth/4-labelWidth/2,
                                                                  self.statusLine.frame.origin.y,
                                                                  labelWidth, labelHeight)];
   self.distanceLabel.textColor = [UIColor darkGrayColor];
+  self.distanceLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:fontSize];
   self.distanceLabel.textAlignment = NSTextAlignmentCenter;
   [self.view addSubview:self.distanceLabel];
   
@@ -361,7 +367,7 @@
 }
 
 #pragma mark
-#pragma makk Set route and stop label
+#pragma mark Set route and stop label
 - (void)setNavigationItemTitle {
   NSDictionary *route = [[SIStopStore sharedStore] route];
   if (route == nil) {
@@ -378,5 +384,15 @@
   } else {
     self.stopLabel.text = stopName;
   }
+}
+
+#pragma mark
+#pragma mark start/stop locationManger
+- (void)startLocationManager:(NSNotification *)note {
+  [self.locationManager startUpdatingLocation];
+}
+
+- (void)stopLocationManager:(NSNotification *)note {
+  [self.locationManager stopUpdatingLocation];
 }
 @end
