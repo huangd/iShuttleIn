@@ -126,14 +126,13 @@
 #pragma mark ETA
 - (void)shuttleETA {
   SIStopStore *sharedStore = [SIStopStore sharedStore];
-  self.shuttleStop = [[SIGeoLocation alloc] initWithLat:[sharedStore.stop objectForKey:@"Latitude"]
-                                                    lng:[sharedStore.stop objectForKey:@"Longitude"]];
+  NSNumber *stopId = [sharedStore.stop objectForKey:@"ID"];
   [self setNavigationItemTitle];
   [self setStopName];
-  NSNumber *vehicleId = [[SIStopStore sharedStore].route objectForKey:@"ID"];
+  NSNumber *routeId = [[SIStopStore sharedStore].route objectForKey:@"ID"];
   
-  [self.shuttleInAPIClient shuttleETA:vehicleId
-                                   to:self.shuttleStop
+  [self.shuttleInAPIClient shuttleETA:routeId
+                                   to:stopId
                              callback:^(NSError *error, SIDirection *direction) {
                                if (error == nil) {
                                  self.shuttleDirection = direction;
@@ -225,8 +224,8 @@
   
   // Scale numberFont and letterFont based on the width
   // of the device. 320 is the default width for iPhone4
-  CGFloat numberFont = 65*(screenWidth/320);
-  CGFloat letterFont = 25*(screenWidth/320);
+  CGFloat numberFont = 55*(screenWidth/320);
+  CGFloat letterFont = 20*(screenWidth/320);
   [self.counterLabel setBoldFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:numberFont]];
   [self.counterLabel setRegularFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:numberFont]];
   // The font property of the label is used as the font for H,M,S and MS

@@ -74,20 +74,10 @@
                                        }];
 }
 
-- (AFHTTPRequestOperation *)shuttleETA:(NSNumber *)vehicleId to:(SIGeoLocation *)to
+- (AFHTTPRequestOperation *)shuttleETA:(NSNumber *)vehicleId to:(NSNumber *)stopId
                               callback:(void (^)(NSError *, SIDirection *))callback {
-  if (to.lat == nil || to.lng == nil) {
-    callback([NSError errorWithDomain:@"to is nil" code:0 userInfo:nil], nil);
-    return nil;
-  }
-  NSDictionary *parameters = @{
-                               @"to": @{
-                                   @"lat": to.lat,
-                                   @"lng": to.lng
-                                   }
-                               };
-  return [self.httpRequestOperationManager GET:[self.baseURLString stringByAppendingString:[NSString stringWithFormat:@"/eta/%@", vehicleId]]
-                                    parameters:parameters
+  return [self.httpRequestOperationManager GET:[self.baseURLString stringByAppendingString:[NSString stringWithFormat:@"/eta/%@/%@", vehicleId, stopId]]
+                                    parameters:nil
                                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                          NSLog(@"shuttleETA operation: %@", operation);
                                          [self successDirectionHandlerResponse:responseObject callback:callback];

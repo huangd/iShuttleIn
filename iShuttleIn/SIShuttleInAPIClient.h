@@ -20,7 +20,7 @@
                       callback:(void (^)(NSError *error, SIDirection *direction))callback;
 
 - (AFHTTPRequestOperation *)shuttleETA:(NSNumber *)vehicleId
-                                    to:(SIGeoLocation *)to
+                                    to:(NSNumber *)to
                               callback:(void (^)(NSError *error, SIDirection *direction))callback;
 
 - (AFHTTPRequestOperation *)routesCallback:(void (^)(NSError *error, NSArray *routes))callback;
