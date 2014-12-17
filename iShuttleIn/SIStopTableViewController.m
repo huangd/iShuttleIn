@@ -34,7 +34,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  NSNumber *routeId = [[[[SIStopStore sharedStore].route objectForKey:@"Patterns"] objectAtIndex:0] objectForKey:@"ID"];
+  NSNumber *routeId = [[SIStopStore sharedStore].route objectForKey:@"ID"];
   [self.shuttleInAPIClient stopsForRoute:routeId
                                 callback:^(NSError *error, NSArray *stops) {
                                   self.stops = stops;

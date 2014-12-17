@@ -105,12 +105,27 @@
 
 - (AFHTTPRequestOperation *)stopsForRoute:(NSNumber *)routeId
                                  callback:(void (^)(NSError *, NSArray *))callback {
-  return [self.httpRequestOperationManager GET:[self.baseURLString stringByAppendingString:[NSString stringWithFormat:@"/route/%@/direction/0/stops", routeId]]
+  return [self.httpRequestOperationManager GET:[self.baseURLString stringByAppendingString:@"/routes/stops"]
                                     parameters:nil
                                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                          NSLog(@"stopsForRoute opertaion: %@", operation);
                                          if (callback) {
-                                           callback(nil, responseObject);
+                                           NSArray *routes = responseObject;
+                                           NSArray *stops;
+                                           for (int i=0; i<routes.count; i++) {
+                                             NSDictionary *route = [routes objectAtIndex:i];
+                                             if ([route objectForKey:@"ID"] == routeId) {
+                                               NSArray *patterns = [route objectForKey:@"Patterns"];
+                                               for (int j=0; j<patterns.count; j++) {
+                                                 NSDictionary *pattern = [patterns objectAtIndex:j];
+                                                 NSDictionary *currentLocations = [pattern objectForKey:@"currentLocations"];
+                                                 if (currentLocations.count != 0) {
+                                                   stops = [pattern objectForKey:@"stops"];
+                                                 }
+                                               }
+                                             }
+                                           };
+                                           callback(nil, stops);
                                          }
                                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                          NSLog(@"%@", operation);
