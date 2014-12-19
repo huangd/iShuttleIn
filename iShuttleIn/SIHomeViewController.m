@@ -77,7 +77,7 @@
   
   // Setup SILocationManager
   self.locationManager = [SILocationManager sharedLocationManager];
-
+  
   // Get ETA
   [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(updateETA) userInfo:nil repeats:YES];
 }
@@ -307,8 +307,8 @@
   CGFloat labelWidth = screenWidth-40;
   CGFloat labelHeight = screenHeigth/27;
   self.stopLabel = [[UILabel alloc] initWithFrame:CGRectMake(screenWidth/2-labelWidth/2,
-                                                                 screenHeigth*0.75,
-                                                                 labelWidth, labelHeight)];
+                                                             screenHeigth*0.75,
+                                                             labelWidth, labelHeight)];
   self.stopLabel.textColor = [UIColor darkGrayColor];
   self.stopLabel.textAlignment = NSTextAlignmentCenter;
   [self.view addSubview:self.stopLabel];
@@ -362,10 +362,14 @@
 
 - (void)setStopName {
   NSString *stopName = [SIStopTableViewController stopName];
-  if (stopName == nil) {
-    self.stopLabel.text = @"Choose a stop";
-  } else {
+  if (stopName != nil) {
     self.stopLabel.text = stopName;
+  } else {
+    if ([[SIStopStore sharedStore] selectedStops].count > 0) {
+      self.stopLabel.text = @"";
+    } else {
+      self.stopLabel.text = @"Choose a stop";
+    }
   }
 }
 
