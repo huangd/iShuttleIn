@@ -10,19 +10,21 @@
 #import "SIShuttleInAPIClient.h"
 #import "SILocationManager.h"
 #import "SIDirection.h"
+#import <PromiseKit.h>
 
 @interface SIStopStore ()
 @property (nonatomic) SIShuttleInAPIClient *shuttleInAPIClient;
-@property (nonatomic) NSMutableArray *stops;
 @property (nonatomic) SILocationManager *locationManager;
+@property (nonatomic) NSArray *routesStops;
 @end
 
 @implementation SIStopStore
 
 NSDictionary *_stop;
 NSDictionary *_route;
-NSString *STOPS_FILE_NAME = @"stops.plist";
+NSMutableDictionary *_selectedStops;
 NSString *ROUTE_FILE_NAME = @"route.plist";
+NSString *SELECTED_STOPS_FILE_NAME = @"selectedStops.plist";
 
 #pragma mark
 #pragma mark Singleton
@@ -47,14 +49,10 @@ NSString *ROUTE_FILE_NAME = @"route.plist";
   self = [super init];
   self.shuttleInAPIClient = [SIShuttleInAPIClient sharedShuttleInAPIClient];
   self.locationManager = [SILocationManager sharedLocationManager];
+  [self updateRoutesStops:nil];
   
-  // Set notification center observer to update/save stops
   [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(saveStops:)
-                                               name:UIApplicationWillResignActiveNotification
-                                             object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(updateStop:)
+                                           selector:@selector(updateRoutesStops:)
                                                name:UIApplicationWillEnterForegroundNotification
                                              object:nil];
   return self;
@@ -64,55 +62,52 @@ NSString *ROUTE_FILE_NAME = @"route.plist";
 #pragma mark Stop
 - (NSDictionary *)stop {
   if (!_stop) {
-    self.stops = [[NSMutableArray alloc] initWithContentsOfFile:[self filePath:STOPS_FILE_NAME]];
-    if (self.stops == nil) {
-      self.stops = [[NSMutableArray alloc] initWithCapacity:3];
-    }
-    _stop = self.stops.firstObject;
+    [self updateStop];
   }
-  // Update stop distance everytime getStop is called
-  [self updateStopDistance];
   return _stop;
 }
 
-- (void)setStop:(NSDictionary *)stop {
-  _stop = [self removeNull:stop];
-  [_stop setValue:0 forKey:@"distance"];
-  [self.stops addObject:_stop];
-  NSUInteger maxSavedStops = 3;
-  if (self.stops.count == maxSavedStops) {
-    [self.stops removeObjectAtIndex:0];
-  }
-  
-  [self.stops writeToFile:[self filePath:STOPS_FILE_NAME] atomically:YES];
-}
-
-- (void)resetStops {
-  _stop = nil;
-  [self.stops removeAllObjects];
-  NSFileManager *fileManager = [NSFileManager defaultManager];
-  [fileManager removeItemAtPath:[self filePath:STOPS_FILE_NAME] error:nil];
-}
-
-- (void)updateStopDistance {
-  SIGeoLocation *lastLocation = self.locationManager.lastLocation;
-  for (NSDictionary *stop in self.stops) {
-    SIGeoLocation *stopLocation = [[SIGeoLocation alloc] initWithLat:[stop objectForKey:@"Latitude"]
-                                                                 lng:[stop objectForKey:@"Longitude"]];
-    [self.shuttleInAPIClient directionFrom:lastLocation
-                                        to:stopLocation
-                                  callback: ^(NSError *error, SIDirection *direction) {
-                                    if (error == nil) {
-                                      NSNumber *distance = [[NSNumber alloc] initWithDouble:direction.distance];
-                                      [stop setValue:distance forKey:@"distance"];
-                                    } else {
-                                      // Set MAX_INT to indicate an error
-                                      NSNumber *distance = [[NSNumber alloc] initWithInt: INT_MAX];
-                                      [stop setValue:distance forKey:@"distance"];
-                                    }
-                                  }];
-    
+- (void)updateStop {
+  NSNumber *routeId = [self.route objectForKey:@"ID"];
+  for (NSDictionary *route in self.routesStops) {
+    if ([route objectForKey:@"ID"] == routeId) {
+      NSArray *patterns = [route objectForKey:@"Patterns"];
+      for (int i=0; i<patterns.count; i++) {
+        NSDictionary *pattern = [patterns objectAtIndex:i];
+        NSDictionary *currentLocations = [pattern objectForKey:@"currentLocations"];
+        if (currentLocations.count > 0) {
+          NSArray *stops = [pattern objectForKey:@"stops"];
+          NSNumber *stopIndex = [self.selectedStops valueForKey:[@(i) stringValue]];
+          _stop = [stops objectAtIndex:stopIndex.integerValue];
+        }
+      };
+    };
   };
+}
+
+#pragma mark
+#pragma mark SelectedStops
+- (NSDictionary *)selectedStops {
+  if (!_selectedStops) {
+    _selectedStops= [[NSMutableDictionary alloc] initWithContentsOfFile:[self filePath:SELECTED_STOPS_FILE_NAME]];
+  }
+  if (!_selectedStops) {
+    _selectedStops = [[NSMutableDictionary alloc] init];
+  }
+  NSDictionary *selectedStopsForThisRoute = [_selectedStops valueForKey:[[_route valueForKey:@"ID"] stringValue]];
+  if (!selectedStopsForThisRoute) {
+    selectedStopsForThisRoute = [[NSDictionary alloc] init];
+    [_selectedStops setValue:selectedStopsForThisRoute forKey:[[_route valueForKey:@"ID"] stringValue]];
+  }
+  return selectedStopsForThisRoute;
+}
+
+- (void)setSelectedStops:(NSDictionary *)selectedStopsForThisRoute {
+  [_selectedStops setValue:selectedStopsForThisRoute forKey:[[_route valueForKey:@"ID"] stringValue]];
+  BOOL hasSaved = [_selectedStops writeToFile:[self filePath:SELECTED_STOPS_FILE_NAME] atomically:YES];
+  if (!hasSaved) {
+    NSLog(@"Failed to save selectedStops %@", selectedStopsForThisRoute);
+  }
 }
 
 #pragma mark
@@ -126,9 +121,15 @@ NSString *ROUTE_FILE_NAME = @"route.plist";
 
 - (void)setRoute:(NSDictionary *)route {
   _route = [self removeNull:route];
-  [_route writeToFile:[self filePath:ROUTE_FILE_NAME] atomically:YES];
-  [self resetStops];
+  BOOL hasSaved = [_route writeToFile:[self filePath:ROUTE_FILE_NAME] atomically:YES];
+  if (!hasSaved) {
+    NSLog(@"Failed to save route %@", _route);
+  }
+  [self updateStop];
 }
+
+#pragma mark
+#pragma mark SelectedStops
 
 #pragma mark
 #pragma mark Helper
@@ -138,8 +139,8 @@ NSString *ROUTE_FILE_NAME = @"route.plist";
   return [documentDirectory stringByAppendingPathComponent:fileName];
 }
 
-- (NSDictionary *)removeNull:(NSDictionary *)json {
-  NSDictionary *newJson = [[NSMutableDictionary alloc] init];
+- (NSMutableDictionary *)removeNull:(NSDictionary *)json {
+  NSMutableDictionary *newJson = [[NSMutableDictionary alloc] init];
   for (NSString *key in json.keyEnumerator) {
     if (![[json objectForKey:key] isKindOfClass:[NSNull class]]) {
       [newJson setValue:[json objectForKey:key] forKey:key];
@@ -148,21 +149,12 @@ NSString *ROUTE_FILE_NAME = @"route.plist";
   return newJson;
 }
 
-#pragma mark
-#pragma mark update stop based on currentLocation
-- (void)saveStops:(NSNotification *)note {
-  [self.stops sortUsingComparator:^(NSDictionary *stopOne, NSDictionary *stopTwo){
-    NSNumber *distanceOne = [stopOne valueForKey:@"distance"];
-    NSNumber *distanceTwo = [stopTwo valueForKey:@"distance"];
-    if ( distanceOne.doubleValue <= distanceTwo.doubleValue) {
-      return (NSComparisonResult)NSOrderedAscending;
-    }
-    return (NSComparisonResult)NSOrderedDescending;
-  }];
-  [self.stops writeToFile:[self filePath:STOPS_FILE_NAME] atomically:YES];
-}
-
-- (void)updateStop:(NSNotification *)note {
-  self.stop = self.stops.firstObject;
+- (void)updateRoutesStops:(NSNotification *)note {
+  [self.shuttleInAPIClient routesStops].then(^(id responseObject){
+    self.routesStops = responseObject;
+    [self updateStop];
+  }).catch(^(NSError *error){
+    NSLog(@"Error: %@", error.localizedDescription);
+  });
 }
 @end

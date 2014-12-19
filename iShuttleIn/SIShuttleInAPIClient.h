@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <PromiseKit.h>
 @class SIDirection;
 @class SIGeoLocation;
 @class AFHTTPRequestOperation;
@@ -27,5 +28,7 @@
 
 - (AFHTTPRequestOperation *)stopsForRoute:(NSNumber *)routeId
                                  callback:(void (^)(NSError *error, NSArray *stops))callback;
+
+- (PMKPromise *)routesStops;
 
 @end

@@ -12,6 +12,7 @@
 
 @property (nonatomic) NSDictionary *stop;
 @property (nonatomic) NSDictionary *route;
+@property (nonatomic) NSDictionary *selectedStops;
 
 //Notice that this is a class method and prefixed with a + instead of -
 + (instancetype)sharedStore;

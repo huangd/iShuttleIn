@@ -10,6 +10,8 @@
 #import "SIGeoLocation.h"
 #import "SIDirection.h"
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
+#import <AFNetworking+PromiseKit.h>
+
 
 @interface SIShuttleInAPIClient ()
 
@@ -111,21 +113,13 @@
                                          NSLog(@"stopsForRoute opertaion: %@", operation);
                                          if (callback) {
                                            NSArray *routes = responseObject;
-                                           NSArray *stops;
-                                           for (int i=0; i<routes.count; i++) {
-                                             NSDictionary *route = [routes objectAtIndex:i];
-                                             if ([route objectForKey:@"ID"] == routeId) {
-                                               NSArray *patterns = [route objectForKey:@"Patterns"];
-                                               for (int j=0; j<patterns.count; j++) {
-                                                 NSDictionary *pattern = [patterns objectAtIndex:j];
-                                                 NSDictionary *currentLocations = [pattern objectForKey:@"currentLocations"];
-                                                 if (currentLocations.count != 0) {
-                                                   stops = [pattern objectForKey:@"stops"];
-                                                 }
-                                               }
+                                           NSArray *patterns;
+                                           for (NSDictionary *route in routes) {
+                                             if ([[route objectForKey:@"ID"] integerValue] == routeId.integerValue) {
+                                               patterns = [route objectForKey:@"Patterns"];
                                              }
                                            };
-                                           callback(nil, stops);
+                                           callback(nil, patterns);
                                          }
                                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                          NSLog(@"%@", operation);
@@ -143,6 +137,10 @@
     direction.distance = [(NSString *)[(NSArray *)[(NSDictionary *)response objectForKey:@"distance"] objectAtIndex:1] doubleValue];
     callback(nil, direction);
   }
+}
+
+- (PMKPromise *)routesStops {
+  return [self.httpRequestOperationManager GET:[self.baseURLString stringByAppendingString:@"/routes/stops"] parameters:nil];
 }
 
 @end
