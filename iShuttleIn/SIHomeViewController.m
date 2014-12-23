@@ -366,9 +366,9 @@
     self.stopLabel.text = stopName;
   } else {
     if ([[SIStopStore sharedStore] selectedStops].count > 0) {
-      self.stopLabel.text = @"";
+      self.stopLabel.text = @"Locating shuttle location...";
     } else {
-      self.stopLabel.text = @"Choose a stop";
+      self.stopLabel.text = @"Choose stops";
     }
   }
 }
