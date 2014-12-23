@@ -100,7 +100,10 @@ NSString *SELECTED_STOPS_FILE_NAME = @"selectedStops.plist";
   NSDictionary *selectedStopsForThisRoute = [_selectedStops valueForKey:[[_route valueForKey:@"ID"] stringValue]];
   if (!selectedStopsForThisRoute) {
     selectedStopsForThisRoute = [[NSDictionary alloc] init];
-    [_selectedStops setValue:selectedStopsForThisRoute forKey:[[_route valueForKey:@"ID"] stringValue]];
+    NSString *routeId = [[_route valueForKey:@"ID"] stringValue];
+    if (routeId != nil) {
+      [_selectedStops setValue:selectedStopsForThisRoute forKey:routeId];
+    }
   }
   return selectedStopsForThisRoute;
 }
