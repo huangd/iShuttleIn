@@ -68,9 +68,10 @@ NSString *SELECTED_STOPS_FILE_NAME = @"selectedStops.plist";
 }
 
 - (void)updateStop {
+  _stop = nil;
   NSNumber *routeId = [self.route objectForKey:@"ID"];
   for (NSDictionary *route in self.routesStops) {
-    if ([route objectForKey:@"ID"] == routeId) {
+    if ([[route valueForKey:@"ID"] longValue] == [routeId longValue]) {
       NSArray *patterns = [route objectForKey:@"Patterns"];
       for (int i=0; i<patterns.count; i++) {
         NSDictionary *pattern = [patterns objectAtIndex:i];
@@ -78,7 +79,9 @@ NSString *SELECTED_STOPS_FILE_NAME = @"selectedStops.plist";
         if (currentLocations.count > 0) {
           NSArray *stops = [pattern objectForKey:@"stops"];
           NSNumber *stopIndex = [self.selectedStops valueForKey:[@(i) stringValue]];
-          _stop = [stops objectAtIndex:stopIndex.integerValue];
+          if (stopIndex != nil) {
+            _stop = [stops objectAtIndex:stopIndex.integerValue];
+          }
         }
       };
     };
