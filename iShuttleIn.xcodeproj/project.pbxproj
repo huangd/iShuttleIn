@@ -27,6 +27,7 @@
 		6F8250431927EAA1008DD772 /* SIGeoLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8250421927EAA1008DD772 /* SIGeoLocation.m */; };
 		6F82504519288091008DD772 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F82504419288091008DD772 /* CoreLocation.framework */; };
 		6FA8B7BA1A2180F3004819D6 /* SIStopStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA8B7B91A2180F3004819D6 /* SIStopStore.m */; };
+		6FAC19331A4DF0D500713E5E /* SIStopStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAC19321A4DF0D500713E5E /* SIStopStoreTests.m */; };
 		6FC18185192706B800BA624F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC18184192706B800BA624F /* Foundation.framework */; };
 		6FC18187192706B800BA624F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC18186192706B800BA624F /* CoreGraphics.framework */; };
 		6FC18189192706B800BA624F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC18188192706B800BA624F /* UIKit.framework */; };
@@ -38,7 +39,6 @@
 		6FC181A5192706B800BA624F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC18184192706B800BA624F /* Foundation.framework */; };
 		6FC181A6192706B800BA624F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC18188192706B800BA624F /* UIKit.framework */; };
 		6FC181AE192706B800BA624F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6FC181AC192706B800BA624F /* InfoPlist.strings */; };
-		6FC181B0192706B800BA624F /* iShuttleInTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC181AF192706B800BA624F /* iShuttleInTests.m */; };
 		6FC7F0281A1298B20054EFF1 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC7F0261A1298B20054EFF1 /* Crashlytics.framework */; };
 		6FC7F0291A1298B20054EFF1 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC7F0271A1298B20054EFF1 /* Fabric.framework */; };
 		6FD6D189192DC50600D8E37C /* SIHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD6D187192DC50600D8E37C /* SIHomeViewController.m */; };
@@ -89,6 +89,7 @@
 		6F82504419288091008DD772 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		6FA8B7B81A2180F3004819D6 /* SIStopStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIStopStore.h; sourceTree = "<group>"; };
 		6FA8B7B91A2180F3004819D6 /* SIStopStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIStopStore.m; sourceTree = "<group>"; };
+		6FAC19321A4DF0D500713E5E /* SIStopStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIStopStoreTests.m; sourceTree = "<group>"; };
 		6FC18181192706B800BA624F /* iShuttleIn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iShuttleIn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FC18184192706B800BA624F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6FC18186192706B800BA624F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -104,7 +105,6 @@
 		6FC181A3192706B800BA624F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6FC181AB192706B800BA624F /* iShuttleInTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iShuttleInTests-Info.plist"; sourceTree = "<group>"; };
 		6FC181AD192706B800BA624F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		6FC181AF192706B800BA624F /* iShuttleInTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iShuttleInTests.m; sourceTree = "<group>"; };
 		6FC7F0261A1298B20054EFF1 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		6FC7F0271A1298B20054EFF1 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		6FD6D186192DC50600D8E37C /* SIHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIHomeViewController.h; sourceTree = "<group>"; };
@@ -235,8 +235,8 @@
 		6FC181A9192706B800BA624F /* iShuttleInTests */ = {
 			isa = PBXGroup;
 			children = (
-				6FC181AF192706B800BA624F /* iShuttleInTests.m */,
 				6FC181AA192706B800BA624F /* Supporting Files */,
+				6FAC19321A4DF0D500713E5E /* SIStopStoreTests.m */,
 			);
 			path = iShuttleInTests;
 			sourceTree = "<group>";
@@ -440,7 +440,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FC181B0192706B800BA624F /* iShuttleInTests.m in Sources */,
+				6FAC19331A4DF0D500713E5E /* SIStopStoreTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
