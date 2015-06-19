@@ -56,20 +56,20 @@
 		2BF249DC9B44E47108923B4C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		6F007E061A2B91DD000D93EE /* SILocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SILocationManager.h; sourceTree = "<group>"; };
 		6F007E071A2B91DD000D93EE /* SILocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SILocationManager.m; sourceTree = "<group>"; };
-		6F0F1E3C192F14DC00A543AE /* RNFrostedSidebar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNFrostedSidebar.h; sourceTree = "<group>"; };
-		6F0F1E3D192F14DC00A543AE /* RNFrostedSidebar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNFrostedSidebar.m; sourceTree = "<group>"; };
+		6F0F1E3C192F14DC00A543AE /* RNFrostedSidebar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNFrostedSidebar.h; path = RNFrostedSidebar/RNFrostedSidebar.h; sourceTree = "<group>"; };
+		6F0F1E3D192F14DC00A543AE /* RNFrostedSidebar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNFrostedSidebar.m; path = RNFrostedSidebar/RNFrostedSidebar.m; sourceTree = "<group>"; };
 		6F0F1E3F192F154300A543AE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6F0F1E41192F154C00A543AE /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		6F1BF0CD192C6A080076E00D /* SIRouteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIRouteTableViewController.h; sourceTree = "<group>"; };
-		6F1BF0CE192C6A080076E00D /* SIRouteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIRouteTableViewController.m; sourceTree = "<group>"; };
-		6F1BF0CF192C6A080076E00D /* SIRouteTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SIRouteTableViewController.xib; sourceTree = "<group>"; };
-		6F1FAC91193161AA00B64A5C /* SIStopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIStopTableViewController.h; sourceTree = "<group>"; };
-		6F1FAC92193161AA00B64A5C /* SIStopTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIStopTableViewController.m; sourceTree = "<group>"; };
-		6F1FAC93193161AA00B64A5C /* SIStopTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SIStopTableViewController.xib; sourceTree = "<group>"; };
-		6F5BC888193259D400B90395 /* SICircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SICircle.h; sourceTree = "<group>"; };
-		6F5BC889193259D400B90395 /* SICircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SICircle.m; sourceTree = "<group>"; };
-		6F5BC88B1932653800B90395 /* SIStatusLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIStatusLine.h; sourceTree = "<group>"; };
-		6F5BC88C1932653800B90395 /* SIStatusLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIStatusLine.m; sourceTree = "<group>"; };
+		6F1BF0CD192C6A080076E00D /* SIRouteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIRouteTableViewController.h; path = Route/SIRouteTableViewController.h; sourceTree = "<group>"; };
+		6F1BF0CE192C6A080076E00D /* SIRouteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIRouteTableViewController.m; path = Route/SIRouteTableViewController.m; sourceTree = "<group>"; };
+		6F1BF0CF192C6A080076E00D /* SIRouteTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIRouteTableViewController.xib; path = Route/SIRouteTableViewController.xib; sourceTree = "<group>"; };
+		6F1FAC91193161AA00B64A5C /* SIStopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIStopTableViewController.h; path = Stop/SIStopTableViewController.h; sourceTree = "<group>"; };
+		6F1FAC92193161AA00B64A5C /* SIStopTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIStopTableViewController.m; path = Stop/SIStopTableViewController.m; sourceTree = "<group>"; };
+		6F1FAC93193161AA00B64A5C /* SIStopTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIStopTableViewController.xib; path = Stop/SIStopTableViewController.xib; sourceTree = "<group>"; };
+		6F5BC888193259D400B90395 /* SICircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SICircle.h; path = Home/SICircle.h; sourceTree = "<group>"; };
+		6F5BC889193259D400B90395 /* SICircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SICircle.m; path = Home/SICircle.m; sourceTree = "<group>"; };
+		6F5BC88B1932653800B90395 /* SIStatusLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIStatusLine.h; path = Home/SIStatusLine.h; sourceTree = "<group>"; };
+		6F5BC88C1932653800B90395 /* SIStatusLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIStatusLine.m; path = Home/SIStatusLine.m; sourceTree = "<group>"; };
 		6F82503B1927DAB5008DD772 /* SIShuttleInAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIShuttleInAPIClient.h; sourceTree = "<group>"; };
 		6F82503C1927DAB5008DD772 /* SIShuttleInAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIShuttleInAPIClient.m; sourceTree = "<group>"; };
 		6F82503E1927E52D008DD772 /* SIDirection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIDirection.h; sourceTree = "<group>"; };
@@ -97,9 +97,9 @@
 		6FC181AD192706B800BA624F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6FC7F0261A1298B20054EFF1 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		6FC7F0271A1298B20054EFF1 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		6FD6D186192DC50600D8E37C /* SIHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIHomeViewController.h; sourceTree = "<group>"; };
-		6FD6D187192DC50600D8E37C /* SIHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIHomeViewController.m; sourceTree = "<group>"; };
-		6FD6D188192DC50600D8E37C /* SIHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SIHomeViewController.xib; sourceTree = "<group>"; };
+		6FD6D186192DC50600D8E37C /* SIHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIHomeViewController.h; path = Home/SIHomeViewController.h; sourceTree = "<group>"; };
+		6FD6D187192DC50600D8E37C /* SIHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIHomeViewController.m; path = Home/SIHomeViewController.m; sourceTree = "<group>"; };
+		6FD6D188192DC50600D8E37C /* SIHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SIHomeViewController.xib; path = Home/SIHomeViewController.xib; sourceTree = "<group>"; };
 		B563839B38D54F91A13FC750 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -133,6 +133,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		653400BD1B3485C3002A9702 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				6F5BC88B1932653800B90395 /* SIStatusLine.h */,
+				6F5BC88C1932653800B90395 /* SIStatusLine.m */,
+				6F5BC888193259D400B90395 /* SICircle.h */,
+				6F5BC889193259D400B90395 /* SICircle.m */,
+				6FD6D186192DC50600D8E37C /* SIHomeViewController.h */,
+				6FD6D187192DC50600D8E37C /* SIHomeViewController.m */,
+				6FD6D188192DC50600D8E37C /* SIHomeViewController.xib */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		653400BE1B3487B2002A9702 /* RNFrostedSidebar */ = {
+			isa = PBXGroup;
+			children = (
+				6F0F1E3C192F14DC00A543AE /* RNFrostedSidebar.h */,
+				6F0F1E3D192F14DC00A543AE /* RNFrostedSidebar.m */,
+			);
+			name = RNFrostedSidebar;
+			sourceTree = "<group>";
+		};
+		653400BF1B3499C0002A9702 /* Route */ = {
+			isa = PBXGroup;
+			children = (
+				6F1BF0CD192C6A080076E00D /* SIRouteTableViewController.h */,
+				6F1BF0CE192C6A080076E00D /* SIRouteTableViewController.m */,
+				6F1BF0CF192C6A080076E00D /* SIRouteTableViewController.xib */,
+			);
+			name = Route;
+			sourceTree = "<group>";
+		};
+		653400C01B349A2C002A9702 /* Stop */ = {
+			isa = PBXGroup;
+			children = (
+				6F1FAC91193161AA00B64A5C /* SIStopTableViewController.h */,
+				6F1FAC92193161AA00B64A5C /* SIStopTableViewController.m */,
+				6F1FAC93193161AA00B64A5C /* SIStopTableViewController.xib */,
+			);
+			name = Stop;
+			sourceTree = "<group>";
+		};
 		6FC18178192706B800BA624F = {
 			isa = PBXGroup;
 			children = (
@@ -173,8 +216,10 @@
 		6FC1818A192706B800BA624F /* iShuttleIn */ = {
 			isa = PBXGroup;
 			children = (
-				6F0F1E3C192F14DC00A543AE /* RNFrostedSidebar.h */,
-				6F0F1E3D192F14DC00A543AE /* RNFrostedSidebar.m */,
+				653400C01B349A2C002A9702 /* Stop */,
+				653400BF1B3499C0002A9702 /* Route */,
+				653400BE1B3487B2002A9702 /* RNFrostedSidebar */,
+				653400BD1B3485C3002A9702 /* Home */,
 				6FC18193192706B800BA624F /* SIAppDelegate.h */,
 				6FC18194192706B800BA624F /* SIAppDelegate.m */,
 				6FC1819C192706B800BA624F /* Images.xcassets */,
@@ -185,19 +230,6 @@
 				6F82503F1927E52D008DD772 /* SIDirection.m */,
 				6F8250411927EAA1008DD772 /* SIGeoLocation.h */,
 				6F8250421927EAA1008DD772 /* SIGeoLocation.m */,
-				6F1BF0CD192C6A080076E00D /* SIRouteTableViewController.h */,
-				6F1BF0CE192C6A080076E00D /* SIRouteTableViewController.m */,
-				6F1BF0CF192C6A080076E00D /* SIRouteTableViewController.xib */,
-				6FD6D186192DC50600D8E37C /* SIHomeViewController.h */,
-				6FD6D187192DC50600D8E37C /* SIHomeViewController.m */,
-				6FD6D188192DC50600D8E37C /* SIHomeViewController.xib */,
-				6F1FAC91193161AA00B64A5C /* SIStopTableViewController.h */,
-				6F1FAC92193161AA00B64A5C /* SIStopTableViewController.m */,
-				6F1FAC93193161AA00B64A5C /* SIStopTableViewController.xib */,
-				6F5BC888193259D400B90395 /* SICircle.h */,
-				6F5BC889193259D400B90395 /* SICircle.m */,
-				6F5BC88B1932653800B90395 /* SIStatusLine.h */,
-				6F5BC88C1932653800B90395 /* SIStatusLine.m */,
 				6FA8B7B81A2180F3004819D6 /* SIStopStore.h */,
 				6FA8B7B91A2180F3004819D6 /* SIStopStore.m */,
 				6F007E061A2B91DD000D93EE /* SILocationManager.h */,
