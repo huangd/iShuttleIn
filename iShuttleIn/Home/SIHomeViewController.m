@@ -89,6 +89,12 @@
     [self updateETA];
     [self setNavigationItemTitle];
     [self setStopName];
+    [self setupNavigationBar];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self resetNavigationBar];
+    [super viewDidDisappear:NO];
 }
 
 - (IBAction)tapBurger:(UIBarButtonItem *)sender {
@@ -348,6 +354,21 @@
                                                     iconSize:25
                                              lineStrokeColor:[UIColor lightGrayColor]];
     [self.view addSubview:self.statusLine];
+}
+
+#pragma mark
+#pragma mark SetupNavigationBar
+- (void)setupNavigationBar {
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
+}
+
+- (void)resetNavigationBar {
+    [self.navigationController.navigationBar setBackgroundImage:nil
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = nil;
 }
 
 #pragma mark
